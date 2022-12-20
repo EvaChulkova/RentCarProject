@@ -12,5 +12,6 @@ public class UrlPath {
     public static final String DOWNLOAD = "/download";
     public static final String LOGOUT = "/logout";
     public static final String SESSIONS = "/sessions";
+    public static final String BOOKINGS = "/bookings";
 
 }

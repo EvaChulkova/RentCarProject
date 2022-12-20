@@ -10,7 +10,9 @@ import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
-@WebServlet("/bookings")
+import static rentCars.util.UrlPath.BOOKINGS;
+
+@WebServlet(BOOKINGS)
 public class BookingServlet extends HttpServlet {
     private final BookingService bookingService = BookingService.getInstance();
 
@@ -21,20 +23,5 @@ public class BookingServlet extends HttpServlet {
         req.getRequestDispatcher(JSPHelper.getPath("bookings"))
                 .forward(req, resp);
 
-        /*resp.setContentType("text/html");
-        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-
-        try (PrintWriter printWriter = resp.getWriter()) {
-            printWriter.write("<h1>Брони:</h1>");
-            printWriter.write("<ul>");
-            bookingService.findAll().forEach(bookingDto -> {
-                printWriter.write("""
-                        <li>
-                        %d - %s
-                        </li>
-                        """.formatted(bookingDto.getId(), bookingDto.getDescription()));
-            });
-            printWriter.write("</ul>");
-        }*/
     }
 }
