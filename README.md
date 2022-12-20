@@ -1,2 +1,2 @@
-# RentCarProject_jdbc-starter
+# RentCarProject
 Rent Car Project
