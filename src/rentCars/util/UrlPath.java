@@ -13,5 +13,7 @@ public class UrlPath {
     public static final String LOGOUT = "/logout";
     public static final String SESSIONS = "/sessions";
     public static final String BOOKINGS = "/bookings";
+    public static final String CARS = "/cars";
+    public static final String CLIENTS = "/clients";
 
 }

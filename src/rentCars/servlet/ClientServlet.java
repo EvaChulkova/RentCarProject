@@ -10,7 +10,9 @@ import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
-@WebServlet("/clients")
+import static rentCars.util.UrlPath.CLIENTS;
+
+@WebServlet(CLIENTS)
 public class ClientServlet extends HttpServlet {
     private final ClientService clientService = ClientService.getInstance();
 
