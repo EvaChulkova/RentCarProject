@@ -14,7 +14,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<form action="/login" method="post">
+<form action="${pageContext.request.contextPath}/login" method="post">
     <label for="loginId"><fmt:message key="page.login.login" />:
         <input type="text" name="login" id="loginId" value="${param.login}" required>
     </label><br>
