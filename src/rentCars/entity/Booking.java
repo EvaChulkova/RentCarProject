@@ -7,48 +7,46 @@ import java.util.Objects;
 
 public class Booking {
     private Long id;
-    private Integer clientId;
+    private Integer userId;
     private Integer carId;
     private LocalDateTime rentalStart;
     private LocalDateTime rentalFinish;
-    private Integer administratorId;
     private BookingStatusEnum status;
     private String comment;
 
-    public Booking(Long id, Integer clientId, Integer carId, LocalDateTime rentalStart, LocalDateTime rentalFinish, Integer administratorId, BookingStatusEnum status, String comment) {
+    public Booking(Long id, Integer userId, Integer carId, LocalDateTime rentalStart, LocalDateTime rentalFinish, BookingStatusEnum status, String comment) {
         this.id = id;
-        this.clientId = clientId;
+        this.userId = userId;
         this.carId = carId;
         this.rentalStart = rentalStart;
         this.rentalFinish = rentalFinish;
-        this.administratorId = administratorId;
         this.status = status;
         this.comment = comment;
     }
 
-    public Booking(Integer clientId, Integer carId, LocalDateTime rentalStart, LocalDateTime rentalFinish, BookingStatusEnum status, String comment) {
-        this.clientId = clientId;
+    public Booking(Integer userId, Integer carId, LocalDateTime rentalStart, LocalDateTime rentalFinish, BookingStatusEnum status, String comment) {
+        this.userId = userId;
         this.carId = carId;
         this.rentalStart = rentalStart;
         this.rentalFinish = rentalFinish;
         this.status = status;
         this.comment = comment;
     }
+
 
     public Booking(){}
 
     @Override
     public String toString() {
         return "Booking{" +
-                "id=" + id +
-                ", clientId=" + clientId +
-                ", carId=" + carId +
-                ", rentalStart=" + rentalStart +
-                ", rentalFinish=" + rentalFinish +
-                ", administratorId=" + administratorId +
-                ", status=" + status +
-                ", comment='" + comment + '\'' +
-                '}' + "\n";
+               "id=" + id +
+               ", userId=" + userId +
+               ", carId=" + carId +
+               ", rentalStart=" + rentalStart +
+               ", rentalFinish=" + rentalFinish +
+               ", status=" + status +
+               ", comment='" + comment + '\'' +
+               '}';
     }
 
     @Override
@@ -72,12 +70,12 @@ public class Booking {
         this.id = id;
     }
 
-    public Integer getClientId() {
-        return clientId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getCarId() {
@@ -102,14 +100,6 @@ public class Booking {
 
     public void setRentalFinish(LocalDateTime rentalFinish) {
         this.rentalFinish = rentalFinish;
-    }
-
-    public Integer getAdministratorId() {
-        return administratorId;
-    }
-
-    public void setAdministratorId(Integer administratorId) {
-        this.administratorId = administratorId;
     }
 
     public BookingStatusEnum getStatus() {

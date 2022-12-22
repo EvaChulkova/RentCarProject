@@ -16,9 +16,12 @@ public class BookingService {
         return bookingDao.findAll().stream()
                 .map(booking -> BookingDto.builder()
                         .id(booking.getId())
-                        .description("""
-                                %d - %d - %s - %s
-                                """.formatted(booking.getClientId(), booking.getCarId(), booking.getStatus(), booking.getComment()))
+                        .userId(booking.getUserId())
+                        .carId(booking.getCarId())
+                        .rentalStart(booking.getRentalStart())
+                        .rentalFinish(booking.getRentalFinish())
+                        .status(booking.getStatus())
+                        .comment(booking.getComment())
                         .build()
                 )
                 .collect(toList());

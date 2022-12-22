@@ -19,9 +19,10 @@ public class ClientService {
         return clientDao.findAll().stream()
                 .map(client -> ClientDto.builder()
                         .id(client.getId())
-                        .description("""
-                                %d - %d - %d - %d - %s
-                                """.formatted(client.getId(), client.getUserId(), client.getAge(), client.getLicenceNo(), client.getValidity()))
+                        .userId(client.getUserId())
+                        .age(client.getAge())
+                        .licenceNo(client.getLicenceNo())
+                        .validity(client.getValidity())
                         .build()
                 )
                 .collect(toList());

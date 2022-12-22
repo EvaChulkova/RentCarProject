@@ -18,7 +18,7 @@
 <ul>
     <c:forEach var="client" items="${requestScope.clients}">
         <li>
-            ${client.id} - ${client.description}
+            ${client.id} - ${client.userId} - ${client.age} - ${client.licenceNo} - ${client.validity}
         </li>
     </c:forEach>
 </ul>

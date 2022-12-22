@@ -21,9 +21,12 @@ public class CarService {
         return carDao.findAll().stream()
                 .map(car -> CarDto.builder()
                         .id(car.getId())
-                        .description("""
-                                %d - %s - %s - %d - %d - %s - %s
-                                """.formatted(car.getId(), car.getBrand(), car.getColor(), car.getSeatAmount(), car.getPrice(), car.getStatus(), car.getImage()))
+                        .brand(car.getBrand())
+                        .color(car.getColor())
+                        .seatAmount(car.getSeatAmount())
+                        .price(car.getPrice())
+                        .status(car.getStatus())
+                        .image(car.getImage())
                         .build()
                 )
                 .collect(toList());

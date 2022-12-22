@@ -28,17 +28,16 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
             """;
 
     public static final String ADD_BOOKING_SQL = """
-            INSERT INTO booking (client_id, car_id, rental_start, rental_finish, administrator_id, status, comment) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO booking (user_id, car_id, rental_start, rental_finish, status, comment) 
+            VALUES (?, ?, ?, ?, ?, ?)
             """;
 
     public static final String UPDATE_BOOKING_SQL = """
             UPDATE booking
-            SET client_id = ?,
+            SET user_id = ?,
             car_id = ?,
             rental_start = ?,
             rental_finish = ?,
-            administrator_id = ?,
             status = ?,
             comment = ?
             WHERE id = ?
@@ -46,11 +45,10 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
 
     public static final String FIND_ALL_BOOKINGS_SQL = """
             SELECT id,
-            client_id,
+            user_id,
             car_id,
             rental_start,
             rental_finish,
-            administrator_id,
             status,
             comment
             FROM booking
@@ -66,14 +64,13 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
     public void update(Booking booking) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BOOKING_SQL)) {
-            preparedStatement.setLong(1, booking.getClientId());
+            preparedStatement.setLong(1, booking.getUserId());
             preparedStatement.setLong(2, booking.getCarId());
             preparedStatement.setTimestamp(3, Timestamp.valueOf(booking.getRentalStart()));
             preparedStatement.setTimestamp(4, Timestamp.valueOf(booking.getRentalFinish()));
-            preparedStatement.setLong(5, booking.getAdministratorId());
-            preparedStatement.setString(6, booking.getStatus().name());
-            preparedStatement.setString(7, booking.getComment());
-            preparedStatement.setLong(8, booking.getId());
+            preparedStatement.setString(5, booking.getStatus().name());
+            preparedStatement.setString(6, booking.getComment());
+            preparedStatement.setLong(7, booking.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -188,11 +185,10 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
 
         return new Booking(
                 resultSet.getLong("id"),
-                resultSet.getInt("client_id"),
+                resultSet.getInt("user_id"),
                 resultSet.getInt("car_id"),
                 resultSet.getTimestamp("rental_start").toLocalDateTime(),
                 resultSet.getTimestamp("rental_finish").toLocalDateTime(),
-                resultSet.getInt("administrator_id"),
                 BookingStatusEnum.valueOf(resultSet.getObject("status", String.class)),
                 resultSet.getString("comment")
         );
@@ -216,13 +212,12 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
     public Booking add(Booking booking) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(ADD_BOOKING_SQL, Statement.RETURN_GENERATED_KEYS)) {
-        preparedStatement.setLong(1, booking.getClientId());
+        preparedStatement.setLong(1, booking.getUserId());
         preparedStatement.setLong(2, booking.getCarId());
         preparedStatement.setTimestamp(3, Timestamp.valueOf(booking.getRentalStart()));
         preparedStatement.setTimestamp(4, Timestamp.valueOf(booking.getRentalFinish()));
-        preparedStatement.setLong(5, booking.getAdministratorId());
-        preparedStatement.setString(6, booking.getStatus().name());
-        preparedStatement.setString(7, booking.getComment());
+        preparedStatement.setString(5, booking.getStatus().name());
+        preparedStatement.setString(6, booking.getComment());
 
         preparedStatement.executeUpdate();
         ResultSet generatedKeys = preparedStatement.getGeneratedKeys();

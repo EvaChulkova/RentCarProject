@@ -78,11 +78,10 @@ public class DaoRentCarsRunner {
     private static void addBooking() {
         BookingDao bookingDao = BookingDao.getInstance();
         Booking booking = new Booking();
-        booking.setClientId(7);
+        booking.setUserId(7);
         booking.setCarId(7);
         booking.setRentalStart(LocalDateTime.of(2022, 11, 23, 19, 46, 0));
         booking.setRentalFinish(LocalDateTime.of(2022, 12, 21, 19, 46, 0));
-        booking.setAdministratorId(2);
         booking.setStatus(BookingStatusEnum.APPROVED);
         booking.setComment("Замечаний нет");
 

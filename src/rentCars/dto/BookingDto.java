@@ -1,12 +1,20 @@
 package rentCars.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
+import rentCars.entity.enums.BookingStatusEnum;
 
-@Data
+import java.time.LocalDateTime;
+
+@Value
 @Builder
 public class BookingDto {
-    private final Long id;
-    private final String description;
+    Long id;
+    Integer userId;
+    Integer carId;
+    LocalDateTime rentalStart;
+    LocalDateTime rentalFinish;
+    BookingStatusEnum status;
+    String comment;
 
 }

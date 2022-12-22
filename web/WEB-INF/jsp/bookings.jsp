@@ -17,7 +17,7 @@
 <ul>
     <c:forEach var="booking" items="${requestScope.bookings}">
         <li>
-            ${booking.id} - ${booking.description}
+            ${booking.id} - ${booking.userId} - ${booking.carId} - ${booking.rentalStart} - ${booking.rentalFinish} - ${booking.status} - ${booking.comment}
         </li>
     </c:forEach>
 </ul>

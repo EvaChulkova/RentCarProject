@@ -13,6 +13,9 @@ import rentCars.dto.UserDto;
 import java.io.IOException;
 import java.util.Set;
 
+import static rentCars.util.UrlPath.BOOKINGS;
+import static rentCars.util.UrlPath.CARS;
+import static rentCars.util.UrlPath.CLIENTS;
 import static rentCars.util.UrlPath.IMAGES;
 import static rentCars.util.UrlPath.LOCALE;
 import static rentCars.util.UrlPath.LOGIN;
@@ -20,7 +23,7 @@ import static rentCars.util.UrlPath.REGISTRATION;
 
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
-    private static final Set<String> PUBLIC_PATH = Set.of(LOGIN, REGISTRATION, IMAGES, LOCALE);
+    private static final Set<String> PUBLIC_PATH = Set.of(LOGIN, REGISTRATION, IMAGES, LOCALE, CLIENTS, CARS, BOOKINGS);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
