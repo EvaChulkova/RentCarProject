@@ -15,5 +15,10 @@ public class UrlPath {
     public static final String BOOKINGS = "/bookings";
     public static final String CARS = "/cars";
     public static final String CLIENTS = "/clients";
+    public static final String ADD_CAR = "/add_new_car";
+    public static final String ADD_CLIENT_INFO = "/add_client_info";
+    public static final String CLIENT_BOOKINGS = "/client_bookings";
+    public static final String CREATE_BOOKING ="/create_booking";
+    public static final String CHECK_BOOKING ="/check_booking";
 
 }

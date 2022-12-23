@@ -14,8 +14,10 @@ import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
+import static rentCars.util.UrlPath.ADD_CAR;
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024)
-@WebServlet("/add_new_car")
+@WebServlet(ADD_CAR)
 public class CreateCarServlet extends HttpServlet {
     private final CarService carService = CarService.getInstance();
 

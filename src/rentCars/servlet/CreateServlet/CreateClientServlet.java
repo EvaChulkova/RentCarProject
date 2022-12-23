@@ -5,12 +5,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import rentCars.dto.CreateDto.CreateClientDto;
+import rentCars.dto.UserDto;
 import rentCars.service.ClientService;
 import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
-@WebServlet("/add_new_client")
+import static rentCars.util.UrlPath.ADD_CLIENT_INFO;
+import static rentCars.util.UrlPath.CARS;
+
+@WebServlet(ADD_CLIENT_INFO)
 public class CreateClientServlet extends HttpServlet {
     private final ClientService clientService = ClientService.getInstance();
 
@@ -22,7 +27,8 @@ public class CreateClientServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*var createClientDto = CreateClientDto.builder()
+        var user = (UserDto) req.getSession().getAttribute("user");
+        var createClientDto = CreateClientDto.builder()
                 .userId(String.valueOf(user.getId()))
                 .age(req.getParameter("age"))
                 .licenceNo(req.getParameter("licenceNo"))
@@ -30,6 +36,6 @@ public class CreateClientServlet extends HttpServlet {
                 .build();
 
         clientService.create(createClientDto);
-        resp.sendRedirect("/cars");*/
+        resp.sendRedirect(CARS);
     }
 }

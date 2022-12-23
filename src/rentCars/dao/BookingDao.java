@@ -58,6 +58,16 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
             WHERE id = ?
             """;
 
+    public static final String FIND_BOOKING_BY_USER_ID = """
+            SELECT car_id,
+            rental_start,
+            rental_finish,
+            status,
+            comment 
+            FROM booking
+            WHERE user_id = ?
+            """;
+
     private BookingDao() {}
 
     @Override

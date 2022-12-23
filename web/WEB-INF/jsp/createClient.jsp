@@ -13,15 +13,15 @@
 <body>
 <%@ include file="header.jsp" %>
 <h1>Add info about you (client):</h1>
-<form action="${pageContext.request.contextPath}/add_new_client" method="post">
+<form action="${pageContext.request.contextPath}/add_client_info" method="post">
     <label for="ageId">Age:
         <input type="text" name="age" id="ageId">
     </label><br>
     <label for="licenceNoId">Licence No:
         <input type="text" name="licenceNo" id="licenceNoId">
     </label><br>
-    <label for="validityId">Age:
-        <input type="text" name="validity" id="validityId">
+    <label for="validityId">Validity:
+        <input type="date" name="validity" id="validityId">
     </label><br>
     <button type="submit">Send</button>
 </form>
