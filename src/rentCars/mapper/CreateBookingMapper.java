@@ -13,14 +13,14 @@ public class CreateBookingMapper implements Mapper<CreateBookingDto, Booking>{
     private static final CreateBookingMapper INSTANCE = new CreateBookingMapper();
 
     @Override
-    public Booking mapFrom(CreateBookingDto object) {
+    public Booking mapFrom(CreateBookingDto createBookingDto) {
         return new Booking(
-                object.getUserId(),
-                object.getCarId(),
-                LocalDateTime.parse(object.getRentalStart()),
-                LocalDateTime.parse(object.getRentalFinish()),
-                object.getStatus(),
-                object.getComment()
+                createBookingDto.getUserId(),
+                createBookingDto.getCarId(),
+                LocalDateTime.parse(createBookingDto.getRentalStart()),
+                LocalDateTime.parse(createBookingDto.getRentalFinish()),
+                createBookingDto.getStatus(),
+                createBookingDto.getComment()
         );
     }
 

@@ -23,6 +23,7 @@
             <button type="submit" name="lang" value="en_US">EN</button>
         </form>
     </div>
+
     <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : (param.lang != null ? param.lang : 'en_US')}"/>
     <fmt:setBundle basename="translation"/>
 </div>

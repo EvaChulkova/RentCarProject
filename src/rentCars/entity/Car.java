@@ -6,7 +6,7 @@ import rentCars.entity.enums.CarStatusEnum;
 import java.util.Objects;
 
 public class Car {
-    private Long id;
+    private Integer id;
     private String brand;
     private CarColorEnum color;
     private Integer seatAmount;
@@ -16,7 +16,7 @@ public class Car {
 
     public Car(){}
 
-    public Car(Long id, String brand, CarColorEnum color, Integer seatAmount, Integer price, CarStatusEnum status, String image) {
+    public Car(Integer id, String brand, CarColorEnum color, Integer seatAmount, Integer price, CarStatusEnum status, String image) {
         this.id = id;
         this.brand = brand;
         this.color = color;
@@ -71,11 +71,11 @@ public class Car {
         return Objects.hash(id);
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

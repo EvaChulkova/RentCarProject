@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CarDao implements DaoRentCar<Long, Car> {
+public class CarDao implements DaoRentCar<Integer, Car> {
     private static final CarDao INSTANCE = new CarDao();
 
     public static final String DELETE_FROM_CAR_SQL = """
@@ -54,6 +54,18 @@ public class CarDao implements DaoRentCar<Long, Car> {
 
     public static final String FIND_CAR_BY_ID_SQL = FIND_ALL_CARS_SQL +  """
             WHERE id = ?
+            """;
+
+    public static final String FIND_AVAILABLE_CARS = """
+            SELECT id,
+            brand,
+            color,
+            seat_amount,
+            price, 
+            status,
+            image
+            FROM car
+            WHERE status LIKE 'AVAILABLE'
             """;
 
 
@@ -131,8 +143,22 @@ public class CarDao implements DaoRentCar<Long, Car> {
         }
     }
 
+    public List<Car> findAvailableCars() {
+        try (Connection connection = RentCarsConnectionManager.open();
+        var preparedStatement = connection.prepareStatement(FIND_AVAILABLE_CARS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Car> availableCars = new ArrayList<>();
+            while (resultSet.next()) {
+                availableCars.add(buildCar(resultSet));
+            }
+            return availableCars;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
     @Override
-    public Optional<Car> findById(Long id) {
+    public Optional<Car> findById(Integer id) {
         try (Connection connection = RentCarsConnectionManager.open()) {
             return findCarById(id, connection);
         } catch (SQLException throwables) {
@@ -140,9 +166,9 @@ public class CarDao implements DaoRentCar<Long, Car> {
         }
     }
 
-    public Optional<Car> findCarById(Long id, Connection connection) {
+    public Optional<Car> findCarById(Integer id, Connection connection) {
         try (var preparedStatement= connection.prepareStatement(FIND_CAR_BY_ID_SQL)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setInt(1, id);
 
             var resultSet = preparedStatement.executeQuery();
             Car car = null;
@@ -157,7 +183,7 @@ public class CarDao implements DaoRentCar<Long, Car> {
 
     private Car buildCar(ResultSet resultSet) throws SQLException {
         return new Car(
-                resultSet.getLong("id"),
+                resultSet.getInt("id"),
                 resultSet.getString("brand"),
                 CarColorEnum.valueOf(resultSet.getObject("color", String.class)),
                 resultSet.getInt("seat_amount"),
@@ -189,7 +215,7 @@ public class CarDao implements DaoRentCar<Long, Car> {
 
             var generatedKeys = preparedStatement.getGeneratedKeys();
             if(generatedKeys.next()) {
-                car.setId(generatedKeys.getLong("id"));
+                car.setId(generatedKeys.getInt("id"));
             }
             return car;
         } catch (SQLException throwables) {
@@ -207,7 +233,7 @@ public class CarDao implements DaoRentCar<Long, Car> {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Integer id) {
         try (var connection = RentCarsConnectionManager.open();
              var preparedStatement = connection.prepareStatement(DELETE_FROM_CAR_SQL)) {
             preparedStatement.setLong(1, id);

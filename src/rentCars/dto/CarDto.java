@@ -8,7 +8,7 @@ import rentCars.entity.enums.CarStatusEnum;
 @Data
 @Builder
 public class CarDto {
-    private final Long id;
+    private final Integer id;
     private final String brand;
     private final CarColorEnum color;
     private final Integer seatAmount;

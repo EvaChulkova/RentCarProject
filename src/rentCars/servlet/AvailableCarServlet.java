@@ -10,18 +10,17 @@ import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
-import static rentCars.util.UrlPath.CARS;
+import static rentCars.util.UrlPath.AVAILABLE_CARS;
 
-@WebServlet(CARS)
-public class CarServlet extends HttpServlet {
+@WebServlet(AVAILABLE_CARS)
+public class AvailableCarServlet extends HttpServlet {
     private final CarService carService = CarService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("cars", carService.findAll());
+        req.setAttribute("cars", carService.findAvailableCars());
 
-        req.getRequestDispatcher(JSPHelper.getPath("cars"))
+        req.getRequestDispatcher(JSPHelper.getPath("availableCars"))
                 .forward(req, resp);
-
     }
 }

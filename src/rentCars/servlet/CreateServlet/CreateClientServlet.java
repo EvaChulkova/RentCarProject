@@ -13,7 +13,7 @@ import rentCars.util.JSPHelper;
 import java.io.IOException;
 
 import static rentCars.util.UrlPath.ADD_CLIENT_INFO;
-import static rentCars.util.UrlPath.CARS;
+import static rentCars.util.UrlPath.AVAILABLE_CARS;
 
 @WebServlet(ADD_CLIENT_INFO)
 public class CreateClientServlet extends HttpServlet {
@@ -36,6 +36,6 @@ public class CreateClientServlet extends HttpServlet {
                 .build();
 
         clientService.create(createClientDto);
-        resp.sendRedirect(CARS);
+        resp.sendRedirect(AVAILABLE_CARS);
     }
 }

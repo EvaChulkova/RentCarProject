@@ -16,6 +16,7 @@ import java.util.Set;
 
 import static rentCars.util.UrlPath.ADD_CAR;
 import static rentCars.util.UrlPath.ADD_CLIENT_INFO;
+import static rentCars.util.UrlPath.AVAILABLE_CARS;
 import static rentCars.util.UrlPath.BOOKINGS;
 import static rentCars.util.UrlPath.CARS;
 import static rentCars.util.UrlPath.CHECK_BOOKING;
@@ -31,7 +32,7 @@ import static rentCars.util.UrlPath.REGISTRATION;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
     private static final Set<String> PUBLIC_PATH = Set.of(LOGIN, LOGOUT, REGISTRATION, LOCALE);
-    private static final Set<String> CLIENT_PATH = Set.of(IMAGES, CARS, ADD_CLIENT_INFO, CLIENT_BOOKINGS, CREATE_BOOKING);
+    private static final Set<String> CLIENT_PATH = Set.of(IMAGES, ADD_CLIENT_INFO, CLIENT_BOOKINGS, CREATE_BOOKING, AVAILABLE_CARS);
     private static final Set<String> ADMINISTRATOR_PATH = Set.of(IMAGES, CLIENTS, ADD_CAR, CARS, BOOKINGS, CHECK_BOOKING);
 
     @Override

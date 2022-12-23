@@ -15,13 +15,13 @@
 <h1>Add info about you (client):</h1>
 <form action="${pageContext.request.contextPath}/add_client_info" method="post">
     <label for="ageId">Age:
-        <input type="text" name="age" id="ageId">
+        <input type="text" name="age" id="ageId" required>
     </label><br>
     <label for="licenceNoId">Licence No:
-        <input type="text" name="licenceNo" id="licenceNoId">
+        <input type="text" name="licenceNo" id="licenceNoId" required>
     </label><br>
     <label for="validityId">Validity:
-        <input type="date" name="validity" id="validityId">
+        <input type="date" name="validity" id="validityId" required>
     </label><br>
     <button type="submit">Send</button>
 </form>

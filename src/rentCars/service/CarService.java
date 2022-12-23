@@ -32,8 +32,29 @@ public class CarService {
                 .collect(toList());
     }
 
+    public List<CarDto> findAvailableCars() {
+        return carDao.findAvailableCars().stream()
+                .map(car -> CarDto.builder()
+                        .id(car.getId())
+                        .brand(car.getBrand())
+                        .color(car.getColor())
+                        .seatAmount(car.getSeatAmount())
+                        .price(car.getPrice())
+                        .status(car.getStatus())
+                        .image(car.getImage())
+                        .build())
+                .collect(toList());
+    }
+
+    public Integer findFromAvailableById(List<CarDto> availableCar, String id) {
+        return availableCar.stream()
+                .filter(carDto -> carDto.getId().equals(id))
+                .mapToInt(CarDto::getId)
+                .sum();
+    }
+
     @SneakyThrows
-    public Long create(CreateCarDto createCarDto) {
+    public Integer create(CreateCarDto createCarDto) {
         var car = createCarMapper.mapFrom(createCarDto);
         imageService.upload(car.getImage(), createCarDto.getImage().getInputStream());
         carDao.add(car);

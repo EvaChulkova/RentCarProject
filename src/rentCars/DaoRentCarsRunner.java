@@ -144,7 +144,7 @@ public class DaoRentCarsRunner {
 
     private static void updateCar() {
         var carDao = CarDao.getInstance();
-        var maybeCar = carDao.findById(7L);
+        var maybeCar = carDao.findById(7);
         System.out.println(maybeCar);
 
         maybeCar.ifPresent(car -> {
@@ -155,7 +155,7 @@ public class DaoRentCarsRunner {
 
     private static void deleteCar() {
         var carDao = CarDao.getInstance();
-        var deleteCar = carDao.delete(18L);
+        var deleteCar = carDao.delete(18);
         System.out.println(deleteCar);
     }
 
