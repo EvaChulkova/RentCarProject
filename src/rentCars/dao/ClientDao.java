@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ClientDao implements DaoRentCar<Long, Client> {
+public class ClientDao implements DaoRentCar<Integer, Client> {
     public static final ClientDao INSTANCE = new ClientDao();
 
     public static final String DELETE_CLIENT_SQL = """
@@ -65,7 +65,7 @@ public class ClientDao implements DaoRentCar<Long, Client> {
         preparedStatement.setInt(2, client.getAge());
         preparedStatement.setInt(3, client.getLicenceNo());
         preparedStatement.setTimestamp(4, Timestamp.valueOf(client.getValidity().atStartOfDay()));
-        preparedStatement.setLong(8, client.getId());
+        preparedStatement.setInt(5, client.getId());
 
         preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -105,7 +105,7 @@ public class ClientDao implements DaoRentCar<Long, Client> {
     }
 
     @Override
-    public Optional<Client> findById(Long id) {
+    public Optional<Client> findById(Integer id) {
         try (Connection connection = RentCarsConnectionManager.open()) {
             return findClientById(id, connection);
         } catch (SQLException throwables) {
@@ -113,9 +113,9 @@ public class ClientDao implements DaoRentCar<Long, Client> {
         }
     }
 
-    public Optional<Client> findClientById(Long id, Connection connection) {
+    public Optional<Client> findClientById(Integer id, Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_CLIENT_BY_ID_SQL)) {
-        preparedStatement.setLong(1, id);
+        preparedStatement.setInt(1, id);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         Client client = null;
@@ -161,15 +161,8 @@ public class ClientDao implements DaoRentCar<Long, Client> {
     }
 
     private Client buildClient(ResultSet resultSet) throws SQLException {
-        /*return new Client(
-                resultSet.getLong("id"),
-                resultSet.getInt("user_id"),
-                resultSet.getInt("age"),
-                resultSet.getInt("licence_no"),
-                resultSet.getDate("validity").toLocalDate()
-        );*/
         return Client.builder()
-                .id(resultSet.getLong("id"))
+                .id(resultSet.getInt("id"))
                 .userId(resultSet.getInt("user_id"))
                 .age(resultSet.getInt("age"))
                 .licenceNo(resultSet.getInt("licence_no"))
@@ -189,7 +182,7 @@ public class ClientDao implements DaoRentCar<Long, Client> {
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             while (generatedKeys.next()) {
-                client.setId(generatedKeys.getLong("id"));
+                client.setId(generatedKeys.getInt("id"));
             }
             return client;
         } catch (SQLException throwables) {
@@ -198,10 +191,10 @@ public class ClientDao implements DaoRentCar<Long, Client> {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Integer id) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_SQL)) {
-        preparedStatement.setLong(1, id);
+        preparedStatement.setInt(1, id);
         return preparedStatement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);

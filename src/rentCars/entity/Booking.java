@@ -1,10 +1,16 @@
 package rentCars.entity;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import rentCars.entity.enums.BookingStatusEnum;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Data
+@Builder
+@EqualsAndHashCode
 public class Booking {
     private Long id;
     private Integer userId;

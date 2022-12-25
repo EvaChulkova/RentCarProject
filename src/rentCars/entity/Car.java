@@ -1,10 +1,16 @@
 package rentCars.entity;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import rentCars.entity.enums.CarColorEnum;
 import rentCars.entity.enums.CarStatusEnum;
 
 import java.util.Objects;
 
+@Data
+@Builder
+@EqualsAndHashCode
 public class Car {
     private Integer id;
     private String brand;

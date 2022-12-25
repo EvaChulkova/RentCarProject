@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class ClientDto {
-    private final Long id;
+    private final Integer id;
     private final Integer userId;
     private final Integer age;
     private final Integer licenceNo;

@@ -98,7 +98,7 @@ public class DaoRentCarsRunner {
 
     private static void updateClient() {
         ClientDao clientDao = ClientDao.getInstance();
-        Optional<Client> maybeClient = clientDao.findById(9L);
+        Optional<Client> maybeClient = clientDao.findById(9);
         System.out.println(maybeClient);
 
         maybeClient.ifPresent(client -> {
@@ -114,7 +114,7 @@ public class DaoRentCarsRunner {
 
     private static void deleteClient() {
         ClientDao clientDao = ClientDao.getInstance();
-        boolean deleteClient = clientDao.delete(10L);
+        boolean deleteClient = clientDao.delete(10);
         System.out.println(deleteClient);
     }
 
