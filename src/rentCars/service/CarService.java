@@ -46,11 +46,20 @@ public class CarService {
                 .collect(toList());
     }
 
-    public Integer findFromAvailableById(List<CarDto> availableCar, String id) {
-        return availableCar.stream()
-                .filter(carDto -> carDto.getId().equals(id))
-                .mapToInt(CarDto::getId)
-                .sum();
+    public List<CarDto> findAvailableCarById(Integer carId) {
+        return carDao.findAvailableCarById(carId).stream()
+                .map(carDto -> CarDto.builder()
+                        .id(carDto.getId())
+                        .brand(carDto.getBrand())
+                        .color(carDto.getColor())
+                        .seatAmount(carDto.getSeatAmount())
+                        .price(carDto.getPrice())
+                        .status(carDto.getStatus())
+                        .image(carDto.getImage())
+                        .build())
+                .collect(toList());
+
+
     }
 
     @SneakyThrows
@@ -60,7 +69,6 @@ public class CarService {
         carDao.add(car);
         return car.getId();
     }
-
 
     public static CarService getInstance(){
         return INSTANCE;

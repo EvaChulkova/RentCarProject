@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jane
@@ -7,17 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Create booking</title>
+    <title>Create booking: </title>
 </head>
 <body>
 <h1>Create booking</h1>
 <form action="${pageContext.request.contextPath}/create_booking" method="post">
-    <label for="car">Car:
-        <select var="car" id="car">
-            <c:forEach var="car" items="${requestScope.availableCars}">
-                <option value="${car.id}">${car.id}</option>
+    <label for="availableCarId">Car:
+        <select name="id" id="availableCarId">
+            <c:forEach var="availableCars" items="${requestScope.availableCars}">
+                <option value="${availableCars.id}">${availableCars.id}</option>
             </c:forEach>
         </select><br>
     </label>

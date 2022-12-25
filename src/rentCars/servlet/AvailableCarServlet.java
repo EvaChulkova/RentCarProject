@@ -18,7 +18,7 @@ public class AvailableCarServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("cars", carService.findAvailableCars());
+        req.setAttribute("availableCars", carService.findAvailableCars());
 
         req.getRequestDispatcher(JSPHelper.getPath("availableCars"))
                 .forward(req, resp);

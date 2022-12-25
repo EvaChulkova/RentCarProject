@@ -12,9 +12,6 @@
         <form action="${pageContext.request.contextPath}/add_new_car" method="get">
             <button type="submit">Add new car</button>
         </form>
-        <form action="${pageContext.request.contextPath}/cars" method="get">
-            <button type="submit">See all cars</button>
-        </form>
         <form action="${pageContext.request.contextPath}/bookings" method="get">
             <button type="submit">See all bookings</button>
         </form>

@@ -1,6 +1,7 @@
 package rentCars.service;
 
 import rentCars.dao.BookingDao;
+import rentCars.dao.CarDao;
 import rentCars.dto.BookingDto;
 import rentCars.dto.CreateDto.CreateBookingDto;
 import rentCars.entity.Booking;
@@ -15,6 +16,7 @@ public class BookingService {
     private static final BookingService INSTANCE = new BookingService();
     private final BookingDao bookingDao = BookingDao.getInstance();
     private final CreateBookingMapper createBookingMapper = CreateBookingMapper.getInstance();
+    private final CarDao carDao = CarDao.getInstance();
     private BookingService(){}
 
     public List<BookingDto> findAll() {
@@ -43,9 +45,6 @@ public class BookingService {
         Booking booking = createBookingMapper.mapFrom(createBookingDto);
         bookingDao.add(booking);
     }
-
-
-
 
     public static BookingService getInstance(){
         return INSTANCE;

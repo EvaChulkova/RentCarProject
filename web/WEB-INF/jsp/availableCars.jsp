@@ -13,13 +13,13 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>Cars</h1>
+<h1>Available cars</h1>
 <ul>
-    <c:forEach var = "car" items="${requestScope.cars}">
+    <c:forEach var ="car" items="${requestScope.availableCars}">
         <li>
-                <%--<img width="150" height="100" src="${pageContext.request.contextPath}/images/${car.image}" alt="No image"><br>--%>
-                ${car.brand} - ${car.color} - ${car.seatAmount} - ${car.price} - ${car.status} - ${car.image}
-        </li>
+            <img width="210" height="170" src="${pageContext.request.contextPath}/images${car.image}" alt="No image"><br>
+            <a href="${pageContext.request.contextPath}/create_booking?carId=${car.id}"> ${car.brand} - ${car.color} - ${car.seatAmount} - ${car.price} - ${car.status} - ${car.image}" </a>
+        </li> <br>
     </c:forEach>
 </ul>
 <%@ include file="footer.jsp" %>

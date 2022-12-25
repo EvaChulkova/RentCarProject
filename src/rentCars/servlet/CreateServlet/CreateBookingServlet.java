@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import rentCars.dto.CarDto;
 import rentCars.dto.CreateDto.CreateBookingDto;
 import rentCars.dto.UserDto;
 import rentCars.entity.enums.BookingStatusEnum;
@@ -14,7 +13,6 @@ import rentCars.service.CarService;
 import rentCars.util.JSPHelper;
 
 import java.io.IOException;
-import java.util.List;
 
 import static rentCars.util.UrlPath.AVAILABLE_CARS;
 import static rentCars.util.UrlPath.CREATE_BOOKING;
@@ -26,19 +24,20 @@ public class CreateBookingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("availableCars", carService.findAvailableCars());
+        var carId = Integer.valueOf(req.getParameter("carId"));
+        req.setAttribute("availableCars", carService.findAvailableCarById(carId));
 
-        req.getRequestDispatcher(JSPHelper.getPath("my_booking"))
+        req.getRequestDispatcher(JSPHelper.getPath("createBooking"))
                 .forward(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CarDto> availableCars = carService.findAvailableCars();
         var user = (UserDto) req.getSession().getAttribute("user");
         var bookingDto = CreateBookingDto.builder()
                 .userId(user.getId())
-                .carId(carService.findFromAvailableById(availableCars, req.getParameter("car")))
+                .carId(Integer.valueOf(req.getParameter("id")))
                 .rentalStart(req.getParameter("rentalStart"))
                 .rentalFinish(req.getParameter("rentalFinish"))
                 .status(BookingStatusEnum.IN_PROGRESS)

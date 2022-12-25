@@ -17,11 +17,11 @@
 <ul>
     <c:forEach var = "car" items="${requestScope.cars}">
         <li>
-                <%--<img width="150" height="100" src="${pageContext.request.contextPath}/images/${car.image}" alt="No image"><br>--%>
-            ${car.id} - ${car.brand} - ${car.color} - ${car.seatAmount} - ${car.price} - ${car.status} - ${car.image}
-        </li>
+            <img width="210" height="170" src="${pageContext.request.contextPath}/images${car.image}" alt="No image"><br>
+            ${car.id} - ${car.brand} - ${car.color} - ${car.seatAmount} - ${car.price} - ${car.status} - ${car.image} <br>
+        </li><br>
     </c:forEach>
 </ul>
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>

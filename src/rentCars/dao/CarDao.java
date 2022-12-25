@@ -68,6 +68,18 @@ public class CarDao implements DaoRentCar<Integer, Car> {
             WHERE status LIKE 'AVAILABLE'
             """;
 
+    private static final String FIND_AVAILABLE_CAR_BY_ID = """
+            SELECT id,
+            brand,
+            color,
+            seat_amount,
+            price, 
+            status,
+            image
+            FROM car
+            WHERE status LIKE 'AVAILABLE' and id = ?
+            """;
+
 
     private CarDao() {}
 
@@ -152,6 +164,22 @@ public class CarDao implements DaoRentCar<Integer, Car> {
                 availableCars.add(buildCar(resultSet));
             }
             return availableCars;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public Optional<Car> findAvailableCarById(Integer id) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             var preparedStatement= connection.prepareStatement(FIND_AVAILABLE_CAR_BY_ID)) {
+            preparedStatement.setInt(1, id);
+
+            var resultSet = preparedStatement.executeQuery();
+            Car car = null;
+            if (resultSet.next()) {
+                car = buildCar(resultSet);
+            }
+            return Optional.ofNullable(car);
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);
         }

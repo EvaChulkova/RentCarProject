@@ -165,34 +165,6 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
     }
 
     private Booking buildBooking(ResultSet resultSet) throws SQLException {
-        /*var car = new Car(
-                resultSet.getLong("id"),
-                resultSet.getString("brand"),
-                CarColorEnum.valueOf(resultSet.getObject("color", String.class)),
-                resultSet.getInt("seat_amount"),
-                resultSet.getBigDecimal("price"),
-                CarStatusEnum.valueOf(resultSet.getObject("status", String.class))
-        );
-
-        var client = new Client(
-                resultSet.getLong("id"),
-                resultSet.getString("fio"),
-                resultSet.getInt("age"),
-                resultSet.getInt("licence_no"),
-                resultSet.getDate("validity").toLocalDate(),
-                resultSet.getString("login"),
-                resultSet.getString("password"),
-                resultSet.getInt("role_id")
-        );
-
-        var administrator = new Administrator(
-                resultSet.getLong("id"),
-                resultSet.getString("fio"),
-                resultSet.getString("login"),
-                resultSet.getString("password"),
-                resultSet.getInt("role_id")
-        );*/
-
         return new Booking(
                 resultSet.getLong("id"),
                 resultSet.getInt("user_id"),
@@ -202,28 +174,14 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
                 BookingStatusEnum.valueOf(resultSet.getObject("status", String.class)),
                 resultSet.getString("comment")
         );
-
-        /*return new Booking(
-                resultSet.getLong("id"),
-                clientDao.findClientById(resultSet.getLong("client_id"),
-                        resultSet.getStatement().getConnection()).orElse(null),
-                carDao.findCarById((resultSet.getLong("car_id")),
-                        resultSet.getStatement().getConnection()).orElse(null),
-                resultSet.getTimestamp("rental_start").toLocalDateTime(),
-                resultSet.getTimestamp("rental_finish").toLocalDateTime(),
-                administratorDao.findById(resultSet.getLong("administrator_id"),
-                        resultSet.getStatement().getConnection()).orElse(null),
-                BookingStatusEnum.valueOf(resultSet.getObject("status", String.class)),
-                resultSet.getString("comment")
-        );*/
     }
 
     @Override
     public Booking add(Booking booking) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(ADD_BOOKING_SQL, Statement.RETURN_GENERATED_KEYS)) {
-        preparedStatement.setLong(1, booking.getUserId());
-        preparedStatement.setLong(2, booking.getCarId());
+        preparedStatement.setInt(1, booking.getUserId());
+        preparedStatement.setInt(2, booking.getCarId());
         preparedStatement.setTimestamp(3, Timestamp.valueOf(booking.getRentalStart()));
         preparedStatement.setTimestamp(4, Timestamp.valueOf(booking.getRentalFinish()));
         preparedStatement.setString(5, booking.getStatus().name());

@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>My bookings</title>
+    <title>All my bookings</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>My bookings</h1>
+<h1>All my bookings</h1>
 <ul>
     <c:forEach var="client_booking" items="${requestScope.client_bookings}">
         <li>

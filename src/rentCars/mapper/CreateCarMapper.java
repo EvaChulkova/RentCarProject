@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class CreateCarMapper implements Mapper<CreateCarDto, Car>{
-    private static final String IMAGE_FOLDER = "/cars";
+    private static final String ENTITY_NAME = "car_";
     private static final CreateCarMapper INSTANCE = new CreateCarMapper();
 
     @Override
@@ -21,7 +21,7 @@ public class CreateCarMapper implements Mapper<CreateCarDto, Car>{
                 Integer.valueOf(createCarDto.getSeatAmount()),
                 Integer.valueOf(createCarDto.getPrice()),
                 CarStatusEnum.valueOf(createCarDto.getStatus()),
-                IMAGE_FOLDER + createCarDto.getImage().getSubmittedFileName()
+                ENTITY_NAME + createCarDto.getImage().getSubmittedFileName()
         );
     }
 
