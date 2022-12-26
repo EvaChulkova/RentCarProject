@@ -46,6 +46,8 @@ public class BookingService {
                 .collect(toList());
     }
 
+
+
     public List<BookingDto> findBookingsByUserId (Integer userId) {
         var bookingDtos = findAll();
         return bookingDtos.stream()
@@ -72,40 +74,39 @@ public class BookingService {
 
         if (bookingDto.getStatus().equals(IN_PROGRESS)) {
             String allowableAgeMessage = "";
-            if (!isAllowableAge(clientAge)) {
+            if (isNotAllowableAge(clientAge)) {
                 allowableAgeMessage = "Your age must be greater than or equal to 18.";
             }
 
             String validLicenceMessage = "";
-            if (!isValidLicence(clientLicenceValidity, rentalStart, rentalFinish)) {
+            if (isNotValidLicence(clientLicenceValidity, rentalStart, rentalFinish)) {
                 validLicenceMessage = "Your driving licence is not valid during var booking.";
             }
 
             String correctPeriodOfBookingMessage = "";
-            if (!isCorrectPeriodOfBooking(rentalStart, rentalFinish)) {
+            if (isNotCorrectPeriodOfBooking(rentalStart, rentalFinish)) {
                 correctPeriodOfBookingMessage = "Your choose incorrect period of booking. Please, check dates of car booking.";
             }
 
             String final_message = "Everything is OK! - Have a nice trip!";
             BookingStatusEnum bookingStatusEnum = BookingStatusEnum.APPROVED;
 
-            if ((!isAllowableAge(clientAge)) ||
-                (!isValidLicence(clientLicenceValidity, rentalStart, rentalFinish)) ||
-                (!isCorrectPeriodOfBooking(rentalStart, rentalFinish))) {
+            if ((isNotAllowableAge(clientAge)) ||
+                (isNotValidLicence(clientLicenceValidity, rentalStart, rentalFinish)) ||
+                (isNotCorrectPeriodOfBooking(rentalStart, rentalFinish))) {
                 bookingStatusEnum = BookingStatusEnum.REJECTED;
                 final_message = String.format("%s %s %s", allowableAgeMessage, validLicenceMessage, correctPeriodOfBookingMessage);
 
             } else {
                 final_message = final_message + "Total price: " + finalPrice + " rubles";
 
-                Optional<Car> car = carDao.findById(bookingDto.getCarId());
+                Optional<Car> car = carDao.findAvailableCarById(bookingDto.getCarId());
                 if (car.isPresent()) {
                     Car carToUpdate = Car.builder()
                             .status(CarStatusEnum.BOOKED)
                             .build();
                     carDao.update(carToUpdate);
                 }
-
             }
 
             Optional<Booking> booking = bookingDao.findById(bookingDto.getId());
@@ -125,16 +126,16 @@ public class BookingService {
     }
 
 
-    private boolean isCorrectPeriodOfBooking(LocalDateTime rentalStart, LocalDateTime rentalFinish) {
-        return (rentalStart.toLocalDate()).isBefore(rentalFinish.toLocalDate());
+    private boolean isNotCorrectPeriodOfBooking(LocalDateTime rentalStart, LocalDateTime rentalFinish) {
+        return (rentalStart.toLocalDate()).isAfter(rentalFinish.toLocalDate());
     }
 
-    private boolean isValidLicence(LocalDate clientLicenceValidity, LocalDateTime rentalStart, LocalDateTime rentalFinish) {
-        return clientLicenceValidity.isAfter(rentalStart.toLocalDate()) || clientLicenceValidity.isAfter(rentalFinish.toLocalDate());
+    private boolean isNotValidLicence(LocalDate clientLicenceValidity, LocalDateTime rentalStart, LocalDateTime rentalFinish) {
+        return clientLicenceValidity.isBefore(rentalStart.toLocalDate()) || clientLicenceValidity.isBefore(rentalFinish.toLocalDate());
     }
 
-    private boolean isAllowableAge(Integer clientAge) {
-        return clientAge >= BookingService.ALLOWABLE_AGE;
+    private boolean isNotAllowableAge(Integer clientAge) {
+        return clientAge < BookingService.ALLOWABLE_AGE;
     }
 
     private double calculatePrice(Integer pricePerDay, LocalDateTime rentalStart, LocalDateTime rentalFinish) {

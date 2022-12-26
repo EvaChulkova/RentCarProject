@@ -17,9 +17,14 @@
 <ul>
     <c:forEach var="booking" items="${requestScope.bookings}">
         <li>
-            ${booking.id} - ${booking.userId} - ${booking.carId} - ${booking.rentalStart} - ${booking.rentalFinish} - ${booking.status} - ${booking.comment}
+            <a href="${pageContext.request.contextPath}/check_booking?bookingId=${booking.id}">
+                    ${booking.userId} - ${booking.carId} - ${booking.rentalStart} - ${booking.rentalFinish} - ${booking.status} - ${booking.comment}
+            </a>
         </li>
     </c:forEach>
 </ul>
+<form action="${pageContext.request.contextPath}/cars" method="get">
+    <button type="submit">Back</button>
+</form>
 </body>
 </html>

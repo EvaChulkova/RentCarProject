@@ -12,6 +12,7 @@
     <title>Create booking: </title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <h1>Create booking</h1>
 <form action="${pageContext.request.contextPath}/create_booking" method="post">
     <label for="availableCarId">Car:

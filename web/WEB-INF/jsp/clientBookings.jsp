@@ -16,7 +16,10 @@
 <ul>
     <c:forEach var="client_booking" items="${requestScope.client_bookings}">
         <li>
-                ${client_booking.carId} - ${client_booking.rentalStart} - ${client_booking.rentalFinish} - ${client_booking.status} - ${client_booking.comment}
+            <a href="${pageContext.request.contextPath}/see_info_about_booking?bookingId=${client_booking.id}">
+                    ${client_booking.carId} - ${client_booking.rentalStart} - ${client_booking.rentalFinish} - ${client_booking.status} - ${client_booking.comment}
+            </a>
+
         </li>
     </c:forEach>
 </ul>
