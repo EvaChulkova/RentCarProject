@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import rentCars.dto.BookingDto;
+import rentCars.service.BookingService;
 import rentCars.service.SeeBookingService;
 import rentCars.util.JSPHelper;
 
@@ -16,14 +17,15 @@ import static rentCars.util.UrlPath.CHECK_BOOKING;
 
 @WebServlet(CHECK_BOOKING)
 public class CheckBookingServlet extends HttpServlet {
-    private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
+    SeeBookingService seeBookingService = SeeBookingService.getInstance();
+    BookingService bookingService = BookingService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer bookingId = Integer.valueOf(req.getParameter("bookingId"));
 
         seeBookingService.findBookingById(bookingId).ifPresentOrElse(bookingDto -> {
-            forwardBookingDto(req, resp, bookingDto);
+            forwardAlreadyCheckedBooking(req, resp, bookingDto);
         }, () -> {
             sendError(resp);
         } );
@@ -32,13 +34,14 @@ public class CheckBookingServlet extends HttpServlet {
     @SneakyThrows
     private void sendError(HttpServletResponse resp) {
         resp.setStatus(400);
-        resp.sendError(400, "Booking does not exist");
+        resp.sendError(400, "No orders");
     }
 
     @SneakyThrows
-    private void forwardBookingDto(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
-        req.setAttribute("booking", bookingDto);
-        req.getRequestDispatcher(JSPHelper.getPath("checkBooking"))
+    private void forwardAlreadyCheckedBooking(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
+        bookingService.checkBooking(bookingDto);
+        req.setAttribute("bookings", bookingService.findAll());
+        req.getRequestDispatcher(JSPHelper.getPath("bookings"))
                 .forward(req, resp);
     }
 }

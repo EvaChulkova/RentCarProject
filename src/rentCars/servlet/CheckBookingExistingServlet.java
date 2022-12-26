@@ -7,25 +7,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import rentCars.dto.BookingDto;
-import rentCars.service.BookingService;
 import rentCars.service.SeeBookingService;
 import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
-import static rentCars.util.UrlPath.CHECKED;
+import static rentCars.util.UrlPath.CHECK_BOOKING_EXISTING;
 
-@WebServlet(CHECKED)
-public class CheckedBookingServlet extends HttpServlet {
-    SeeBookingService seeBookingService = SeeBookingService.getInstance();
-    BookingService bookingService = BookingService.getInstance();
+@WebServlet(CHECK_BOOKING_EXISTING)
+public class CheckBookingExistingServlet extends HttpServlet {
+    private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer bookingId = Integer.valueOf(req.getParameter("bookingId"));
 
         seeBookingService.findBookingById(bookingId).ifPresentOrElse(bookingDto -> {
-            forwardAlreadyCheckedBooking(req, resp, bookingDto);
+            forwardBookingDto(req, resp, bookingDto);
         }, () -> {
             sendError(resp);
         } );
@@ -34,14 +32,13 @@ public class CheckedBookingServlet extends HttpServlet {
     @SneakyThrows
     private void sendError(HttpServletResponse resp) {
         resp.setStatus(400);
-        resp.sendError(400, "No orders");
+        resp.sendError(400, "Booking does not exist");
     }
 
     @SneakyThrows
-    private void forwardAlreadyCheckedBooking(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
-        bookingService.checkBooking(bookingDto);
-        req.setAttribute("bookings", bookingService.findAll());
-        req.getRequestDispatcher(JSPHelper.getPath("bookings"))
+    private void forwardBookingDto(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
+        req.setAttribute("booking", bookingDto);
+        req.getRequestDispatcher(JSPHelper.getPath("checkBooking"))
                 .forward(req, resp);
     }
 }

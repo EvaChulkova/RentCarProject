@@ -37,7 +37,7 @@ public class CreateBookingServlet extends HttpServlet {
         var user = (UserDto) req.getSession().getAttribute("user");
         var bookingDto = CreateBookingDto.builder()
                 .userId(user.getId())
-                .carId(Integer.valueOf(req.getParameter("id")))
+                .carId(Integer.valueOf(String.valueOf(req.getParameter("id"))))
                 .rentalStart(req.getParameter("rentalStart"))
                 .rentalFinish(req.getParameter("rentalFinish"))
                 .status(BookingStatusEnum.IN_PROGRESS)
