@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
     <title>Info about booking</title>
@@ -19,7 +20,7 @@
 </ul>
 
 <form action="${pageContext.request.contextPath}/client_bookings" method="get">
-    <button type="submit">Back</button>
+    <button type="submit"><fmt:message key="page.seeBooking.button.back" /></button>
 </form>
 </body>
 </html>

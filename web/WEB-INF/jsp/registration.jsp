@@ -7,25 +7,27 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
     <title>Registration</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <form action="${pageContext.request.contextPath}/registration" method="post">
-    <label for="firstNameId"> First name:
+    <label for="firstNameId"><fmt:message key="page.registration.firstName" />:
         <input type="text" name="firstName" id="firstNameId">
     </label><br>
-    <label for="lastNameId"> Last name:
+    <label for="lastNameId"><fmt:message key="page.registration.lastName" />:
         <input type="text" name="lastName" id="lastNameId">
     </label><br>
-    <label for="loginId"> Email:
+    <label for="loginId"><fmt:message key="page.registration.login" />:
         <input type="text" name="login" id="loginId">
     </label><br>
-    <label for="passwordId"> Password:
+    <label for="passwordId"><fmt:message key="page.registration.password" />:
         <input type="password" name="password" id="passwordId">
     </label><br>
-    <label for="roleId"> Role:
+    <label for="roleId"><fmt:message key="page.registration.role" />:
         <select name="role" id="roleId">
             <c:forEach var="role" items="${requestScope.roles}">
                 <option value="${role}">${role}</option>
@@ -33,7 +35,7 @@
         </select>
     </label><br>
 
-    <button type="submit">Send</button>
+    <button type="submit"><fmt:message key="page.registration.button.send" /></button>
     <c:if test="${not empty requestScope.rentErrors}">
         <div style="color: red">
             <c:forEach var="error" items="${requestScope.rentErrors}">
