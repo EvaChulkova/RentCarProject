@@ -23,13 +23,14 @@ public class UserDao implements DaoRentCar<Integer, User> {
             WHERE id = ?
             """;
     private static final String ADD_USER_SQL = """
-            INSERT INTO users (fio, login, password, role) 
-            VALUES (?, ?, ?, ?)
+            INSERT INTO users (first_name, last_name, login, password, role) 
+            VALUES (?, ?, ?, ?, ?)
             """;
 
     private static final String UPDATE_USER_SQL = """
             UPDATE users
-            SET fio = ?,
+            SET first_name = ?,
+            last_name = ?,
             login = ?,
             password = ?,
             role = ?
@@ -38,7 +39,8 @@ public class UserDao implements DaoRentCar<Integer, User> {
 
     public static final String FIND_ALL_USERS_SQL = """
             SELECT id,
-            fio,
+            first_name,
+            last_name,
             login,
             password,
             role
@@ -51,7 +53,8 @@ public class UserDao implements DaoRentCar<Integer, User> {
 
     private static final String FIND_USER_BY_LOGIN_AND_PASSWORD_SQL = """
             SELECT id,
-            fio,
+            first_name,
+            last_name,
             login,
             password,
             role 
@@ -77,10 +80,11 @@ public class UserDao implements DaoRentCar<Integer, User> {
     public User add(User user) {
         try (Connection connection = RentCarsConnectionManager.open();
              var preparedStatement = connection.prepareStatement(ADD_USER_SQL, RETURN_GENERATED_KEYS) ) {
-            preparedStatement.setString(1, user.getFio());
-            preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getRole().name());
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getRole().name());
 
             preparedStatement.executeUpdate();
 
@@ -98,11 +102,12 @@ public class UserDao implements DaoRentCar<Integer, User> {
     public void update(User entity) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL) ) {
-            preparedStatement.setObject(1, entity.getFio());
-            preparedStatement.setObject(2, entity.getLogin());
-            preparedStatement.setObject(3, entity.getPassword());
-            preparedStatement.setObject(4, entity.getRole().name());
-            preparedStatement.setObject(5, entity.getId());
+            preparedStatement.setObject(1, entity.getFirstName());
+            preparedStatement.setObject(2, entity.getLastName());
+            preparedStatement.setObject(3, entity.getLogin());
+            preparedStatement.setObject(4, entity.getPassword());
+            preparedStatement.setObject(5, entity.getRole().name());
+            preparedStatement.setObject(6, entity.getId());
 
             preparedStatement.executeUpdate();
 
@@ -169,7 +174,8 @@ public class UserDao implements DaoRentCar<Integer, User> {
     private User buildUser(ResultSet resultSet) throws SQLException {
         return User.builder()
                 .id(resultSet.getObject("id", Integer.class))
-                .fio(resultSet.getObject("fio", String.class))
+                .firstName(resultSet.getObject("first_name", String.class))
+                .lastName(resultSet.getObject("last_name", String.class))
                 .login(resultSet.getObject("login", String.class))
                 .password(resultSet.getObject("password", String.class))
                 .role(RoleEnum.valueOf(resultSet.getObject("role", String.class)))

@@ -14,7 +14,8 @@ public class CreateUserMapper implements Mapper<CreateUserDto, User> {
     @Override
     public User mapFrom(CreateUserDto createUserDto) {
         return User.builder()
-                .fio(createUserDto.getFio())
+                .firstName(createUserDto.getFirstName())
+                .lastName(createUserDto.getLastName())
                 .login(createUserDto.getLogin())
                 .password(createUserDto.getPassword())
                 .role(RoleEnum.valueOf(createUserDto.getRole()))

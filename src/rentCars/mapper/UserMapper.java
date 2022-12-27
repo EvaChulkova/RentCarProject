@@ -6,12 +6,13 @@ import rentCars.entity.User;
 public class UserMapper implements Mapper<User, UserDto>{
     private static final UserMapper INSTANCE = new UserMapper();
     @Override
-    public UserDto mapFrom(User object) {
+    public UserDto mapFrom(User user) {
         return UserDto.builder()
-                .id(object.getId())
-                .fio(object.getFio())
-                .login(object.getLogin())
-                .role(object.getRole())
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .login(user.getLogin())
+                .role(user.getRole())
                 .build();
     }
 

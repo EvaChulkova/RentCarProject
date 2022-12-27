@@ -16,7 +16,8 @@ import rentCars.entity.enums.RoleEnum;
 @Builder
 public class User {
     private Integer id;
-    private String fio;
+    private String firstName;
+    private String lastName;
     private String login;
     private String password;
     private RoleEnum role;

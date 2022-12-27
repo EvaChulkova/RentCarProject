@@ -8,7 +8,8 @@ import rentCars.entity.enums.RoleEnum;
 @Builder
 public class UserDto {
     Integer id;
-    String fio;
+    String firstName;
+    String lastName;
     String login;
     RoleEnum role;
 }

@@ -30,7 +30,8 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var createUserDto = CreateUserDto.builder()
-                .fio(req.getParameter("fio"))
+                .firstName(req.getParameter("firstName"))
+                .lastName(req.getParameter("lastName"))
                 .login(req.getParameter("login"))
                 .password(req.getParameter("password"))
                 .role(req.getParameter("role"))

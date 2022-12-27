@@ -13,8 +13,11 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/registration" method="post">
-    <label for="fioId"> Name:
-        <input type="text" name="fio" id="fioId">
+    <label for="firstNameId"> First name:
+        <input type="text" name="firstName" id="firstNameId">
+    </label><br>
+    <label for="lastNameId"> Last name:
+        <input type="text" name="lastName" id="lastNameId">
     </label><br>
     <label for="loginId"> Email:
         <input type="text" name="login" id="loginId">
