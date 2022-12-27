@@ -24,7 +24,6 @@ public class Car {
     private CarStatusEnum status;
     private String image;
 
-
     public Car(String brand, CarColorEnum color, Integer seatAmount, Integer price, CarStatusEnum status, String image) {
         this.brand = brand;
         this.color = color;
@@ -39,5 +38,9 @@ public class Car {
         this.color = color;
         this.seatAmount = seatAmount;
         this.image = image;
+    }
+
+    public Car(CarStatusEnum status) {
+        this.status = status;
     }
 }

@@ -103,9 +103,10 @@ public class BookingService {
                 Optional<Car> car = carDao.findAvailableCarById(bookingDto.getCarId());
                 if (car.isPresent()) {
                     Car carToUpdate = Car.builder()
+                            .id(bookingDto.getCarId())
                             .status(CarStatusEnum.BOOKED)
                             .build();
-                    carDao.update(carToUpdate);
+                    carDao.updateCarFromBooking(carToUpdate);
                 }
             }
 

@@ -41,6 +41,12 @@ public class CarDao implements DaoRentCar<Integer, Car> {
             WHERE id = ?
             """;
 
+    public static final String UPDATE_CAR_STATUS_SQL = """
+            UPDATE car
+            SET status = ?
+            WHERE id = ?
+            """;
+
     public static final String FIND_ALL_CARS_SQL = """
             SELECT id,
             brand,
@@ -226,9 +232,21 @@ public class CarDao implements DaoRentCar<Integer, Car> {
         try (var connection = RentCarsConnectionManager.open();
         var preparedStatement = connection.prepareStatement(UPDATE_CAR_SQL)) {
             addOrUpdateCar(car, preparedStatement);
-            preparedStatement.setLong(7, car.getId());
+            preparedStatement.setInt(7, car.getId());
 
             preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public void updateCarFromBooking(Car car) {
+        try (Connection connection = RentCarsConnectionManager.open();
+        var prepareStatement = connection.prepareStatement(UPDATE_CAR_STATUS_SQL)) {
+            prepareStatement.setString(1, car.getStatus().name());
+            prepareStatement.setInt(2, car.getId());
+
+            prepareStatement.executeUpdate();
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);
         }

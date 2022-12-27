@@ -17,7 +17,7 @@
 <ul>
     <c:forEach var="booking" items="${requestScope.bookings}">
         <li>
-            <a href="${pageContext.request.contextPath}/check_booking?bookingId=${booking.id}">
+            <a href="${pageContext.request.contextPath}/check_booking_existing?bookingId=${booking.id}">
                     ${booking.userId} - ${booking.carId} - ${booking.rentalStart} - ${booking.rentalFinish} - ${booking.status} - ${booking.comment}
             </a>
         </li>

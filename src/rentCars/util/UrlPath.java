@@ -21,7 +21,7 @@ public class UrlPath {
     public static final String CREATE_BOOKING ="/create_booking";
     public static final String CHECK_BOOKING_EXISTING ="/check_booking_existing";
     public static final String AVAILABLE_CARS = "/available_cars";
-    public static final String CHECK_BOOKING = "/checked";
+    public static final String CHECK_BOOKING = "/check_booking";
     public static final String SEE_INFO_ABOUT_BOOKING = "/see_info_about_booking";
 
 }

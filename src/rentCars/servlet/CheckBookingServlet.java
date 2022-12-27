@@ -25,7 +25,7 @@ public class CheckBookingServlet extends HttpServlet {
         Integer bookingId = Integer.valueOf(req.getParameter("bookingId"));
 
         seeBookingService.findBookingById(bookingId).ifPresentOrElse(bookingDto -> {
-            forwardAlreadyCheckedBooking(req, resp, bookingDto);
+            forwardCheckedExistingBooking(req, resp, bookingDto);
         }, () -> {
             sendError(resp);
         } );
@@ -38,7 +38,7 @@ public class CheckBookingServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void forwardAlreadyCheckedBooking(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
+    private void forwardCheckedExistingBooking(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
         bookingService.checkBooking(bookingDto);
         req.setAttribute("bookings", bookingService.findAll());
         req.getRequestDispatcher(JSPHelper.getPath("bookings"))
