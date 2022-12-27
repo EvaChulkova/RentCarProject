@@ -23,9 +23,6 @@
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
             <button type="submit">See all my bookings</button>
         </form>
-        <form action="${pageContext.request.contextPath}/create_booking" method="get">
-            <button type="submit">Create booking</button>
-        </form>
     </c:if>
 
 </div>
