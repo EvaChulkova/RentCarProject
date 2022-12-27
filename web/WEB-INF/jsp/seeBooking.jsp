@@ -17,5 +17,9 @@
 <ul>
     ${requestScope.booking.id} - ${requestScope.booking.userId} - ${requestScope.booking.carId} - ${requestScope.booking.rentalStart} - ${requestScope.booking.rentalFinish} -${requestScope.booking.status} - ${requestScope.booking.comment}
 </ul>
+
+<form action="${pageContext.request.contextPath}/client_bookings" method="get">
+    <button type="submit">Back</button>
+</form>
 </body>
 </html>

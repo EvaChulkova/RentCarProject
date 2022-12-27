@@ -23,8 +23,10 @@
         </li>
     </c:forEach>
 </ul>
+
 <form action="${pageContext.request.contextPath}/cars" method="get">
     <button type="submit">Back</button>
 </form>
+
 </body>
 </html>

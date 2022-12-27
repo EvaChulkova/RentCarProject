@@ -17,13 +17,13 @@
         </form>
     </c:if>
     <c:if test="${sessionScope.user.role.name() == 'CLIENT'}">
-        <form action="${pageContext.request.contextPath}/add_client_info" method="get">
+        <%--<form action="${pageContext.request.contextPath}/add_client_info" method="get">
             <button type="submit">Add info about me</button>
-        </form>
+        </form>--%>
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
             <button type="submit">See all my bookings</button>
         </form>
-        <form action="/create_booking" method="get">
+        <form action="${pageContext.request.contextPath}/create_booking" method="get">
             <button type="submit">Create booking</button>
         </form>
     </c:if>

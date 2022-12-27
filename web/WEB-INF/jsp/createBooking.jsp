@@ -29,7 +29,10 @@
         <input type="datetime-local" name="rentalFinish" id="rentalFinishId">
     </label><br>
     <button type="submit">Send</button>
+</form>
 
+<form action="${pageContext.request.contextPath}/available_cars" method="get">
+    <button type="submit">Back</button>
 </form>
 
 </body>

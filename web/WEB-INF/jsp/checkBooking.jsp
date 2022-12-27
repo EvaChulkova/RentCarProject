@@ -21,6 +21,8 @@
 <form action="${pageContext.request.contextPath}/check_booking" method="get">
     <button type="submit" name="bookingId" value="${booking.id}">Check booking</button>
 </form>
-
+<form action="${pageContext.request.contextPath}/bookings" method="get">
+    <button type="submit">Back</button>
+</form>
 </body>
 </html>
