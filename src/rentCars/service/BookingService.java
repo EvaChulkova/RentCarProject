@@ -100,6 +100,7 @@ public class BookingService {
             } else {
                 final_message = final_message + "Total price: " + finalPrice + " rubles";
 
+
                 Optional<Car> car = carDao.findAvailableCarById(bookingDto.getCarId());
                 if (car.isPresent()) {
                     Car carToUpdate = Car.builder()

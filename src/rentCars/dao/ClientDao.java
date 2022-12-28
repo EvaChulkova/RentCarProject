@@ -26,7 +26,7 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
 
     public static final String ADD_CLIENT_SQL = """
             INSERT INTO client(user_id, age, licence_no, validity) 
-            VALUES (?,  ?, ?, ?)
+            VALUES (?, ?, ?, ?)
             """;
 
     public static final String UPDATE_CLIENT_SQL = """
