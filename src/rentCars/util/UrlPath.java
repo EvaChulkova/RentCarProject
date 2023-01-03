@@ -24,11 +24,11 @@ public class UrlPath {
     public static final String AVAILABLE_CARS = "/available_cars";
     public static final String CHECK_BOOKING = "/check_booking";
     public static final String SEE_INFO_ABOUT_BOOKING = "/see_info_about_booking";
-    public static final String DOWNLOAD_ADMIN = "/download_admin";
-    public static final String DOWNLOAD_CLIENT = "/download_client";
+    public static final String DOWNLOAD_ADMIN = "/download_admin_report";
+    public static final String DOWNLOAD_CLIENT = "/download_client_report";
     public static final Path ADMIN_REPORT_FULL_PATH = Path.of("home","jane", "DMDev_HW", "jdbc-starter", "resources", "admin_report.txt");
-    public static final Path ADMIN_REPORT_FULL = Path.of("\\home\\jane\\DMDev_HW\\jdbc-starter\\resources\\admin_report.txt");
     public static final Path CLIENT_REPORT_FULL_PATH = Path.of("home","jane", "DMDev_HW", "jdbc-starter", "resources", "client_report.txt");
-    public static final Path CLIENT_REPORT_FULL = Path.of("\\home\\jane\\DMDev_HW\\jdbc-starter\\resources\\client_report.txt");
+    public static final String CREATE_ADMIN_REPORT = "/create_admin_report";
+    public static final String CREATE_CLIENT_REPORT = "/create_client_report";
 
 }

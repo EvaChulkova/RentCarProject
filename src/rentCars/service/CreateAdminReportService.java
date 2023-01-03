@@ -11,8 +11,8 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class DownloadAdminService {
-    private static final DownloadAdminService INSTANCE = new DownloadAdminService();
+public class CreateAdminReportService {
+    private static final CreateAdminReportService INSTANCE = new CreateAdminReportService();
     private final BookingService bookingService = BookingService.getInstance();
     private final UserDao userDao = UserDao.getInstance();
     private final ClientDao clientDao = ClientDao.getInstance();
@@ -29,7 +29,7 @@ public class DownloadAdminService {
         return adminReport.toString();
     }
 
-    public static DownloadAdminService getInstance() {
+    public static CreateAdminReportService getInstance() {
         return INSTANCE;
     }
 }

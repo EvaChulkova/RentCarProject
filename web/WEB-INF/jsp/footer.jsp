@@ -15,7 +15,7 @@
         <form action="${pageContext.request.contextPath}/bookings" method="get">
             <button type="submit">See all bookings</button>
         </form>
-        <form action="${pageContext.request.contextPath}/download_admin" method="get">
+        <form action="${pageContext.request.contextPath}/download_admin_report" method="get">
             <button type="submit">Download admin report</button>
         </form>
     </c:if>
@@ -26,7 +26,7 @@
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
             <button type="submit">See all my bookings</button>
         </form>
-        <form action="${pageContext.request.contextPath}/download_client" method="get">
+        <form action="${pageContext.request.contextPath}/download_client_report" method="get">
             <button type="submit">Download client report</button>
         </form>
     </c:if>

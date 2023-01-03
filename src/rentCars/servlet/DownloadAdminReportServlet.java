@@ -11,25 +11,23 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import static rentCars.util.UrlPath.ADMIN_REPORT_FULL;
+import static rentCars.util.UrlPath.ADMIN_REPORT_FULL_PATH;
 import static rentCars.util.UrlPath.DOWNLOAD_ADMIN;
 
 @WebServlet(DOWNLOAD_ADMIN)
-public class DownloadAdminServlet extends HttpServlet {
+public class DownloadAdminReportServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setHeader("Content-Disposition", "attachment; filename=\"admin_report.txt\"");
         resp.setContentType("text/plain");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
+
         try (PrintWriter writer = resp.getWriter()) {
-            Files.createDirectories(ADMIN_REPORT_FULL.getParent());
-            writer.write(Files.readString(ADMIN_REPORT_FULL));
+            Files.createDirectories(ADMIN_REPORT_FULL_PATH.getParent());
+            writer.write(Files.readString(ADMIN_REPORT_FULL_PATH));
         }
 
-        /*try (var outputStream = resp.getOutputStream();
-             var stream = DownloadAdminServlet.class.getClassLoader().getResourceAsStream("admin_report.txt")) {
-            outputStream.write(stream.readAllBytes());
-        }*/
     }
 }
