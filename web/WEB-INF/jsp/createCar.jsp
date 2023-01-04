@@ -45,6 +45,10 @@
     </label><br>
 
     <button type="submit"><fmt:message key="page.createCar.button.send" /></button>
+
+</form>
+<form action="${pageContext.request.contextPath}/cars" method="get">
+    <button type="submit"><fmt:message key="page.createCar.button.back" /></button>
 </form>
 </body>
 </html>
