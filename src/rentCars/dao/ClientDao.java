@@ -1,6 +1,5 @@
 package rentCars.dao;
 
-import rentCars.filter.ClientFilter;
 import rentCars.entity.Client;
 import rentCars.exception.RentCarsDaoException;
 import rentCars.util.RentCarsConnectionManager;
@@ -14,7 +13,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ClientDao implements DaoRentCar<Integer, Client> {
     public static final ClientDao INSTANCE = new ClientDao();
@@ -73,36 +71,6 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
         }
     }
 
-    public List<Client> findClientWithFilters(ClientFilter clientFilter) {
-        List<Object> parameters = new ArrayList<>();
-        List<String> whereSQL = new ArrayList<>();
-        if (clientFilter.licenceNo() != null) {
-            whereSQL.add("licence_no = ? ");
-            parameters.add(clientFilter.licenceNo());
-        }
-        parameters.add(clientFilter.limit());
-        parameters.add(clientFilter.offset());
-
-        String where = whereSQL.stream()
-                .collect(Collectors.joining(" AND ", " WHERE ", " LIMIT ? OFFSET ?"));
-
-        String sql = FIND_ALL_CLIENTS_SQL + where;
-        try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < parameters.size(); i++) {
-                preparedStatement.setObject(i + 1, parameters.get(i));
-            }
-            System.out.println(preparedStatement);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Client> clients = new ArrayList<>();
-            while (resultSet.next()) {
-                clients.add(buildClient(resultSet));
-            }
-            return clients;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
 
     @Override
     public Optional<Client> findById(Integer id) {

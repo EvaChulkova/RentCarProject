@@ -9,9 +9,6 @@ import rentCars.entity.Client;
 import rentCars.entity.enums.BookingStatusEnum;
 import rentCars.entity.enums.CarColorEnum;
 import rentCars.entity.enums.CarStatusEnum;
-import rentCars.filter.BookingFilter;
-import rentCars.filter.CarFilter;
-import rentCars.filter.ClientFilter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,22 +21,17 @@ public class DaoRentCarsRunner {
         //deleteCar();
         //updateCar();
         //findAllCars();
-        //findCarWithFilter();
 
         //addClient();
         //deleteClient();
         //findAllClients();
         //updateClient();
         //findClientWithFilters();
-        // findClientByUserId();
-
 
         //addBooking();
         //deleteBooking();
         //findAllBookings();
         //updateBooking();
-        //findBookingWithFilters();
-
     }
 
     private static void findClientByUserId() {
@@ -47,11 +39,6 @@ public class DaoRentCarsRunner {
         System.out.println(clientIdByUserId);
     }
 
-    private static void findBookingWithFilters() {
-        BookingFilter bookingFilter = new BookingFilter(5, 0, null, null, 3, null);
-        List<Booking> bookingWithFilters = BookingDao.getInstance().findBookingWithFilters(bookingFilter);
-        System.out.println(bookingWithFilters);
-    }
 
     private static void updateBooking() {
         BookingDao bookingDao = BookingDao.getInstance();
@@ -90,12 +77,6 @@ public class DaoRentCarsRunner {
     }
 
 
-    private static void findClientWithFilters() {
-        ClientFilter clientFilter = new ClientFilter(5, 0,  95443);
-        List<Client> clientWithFilters = ClientDao.getInstance().findClientWithFilters(clientFilter);
-        System.out.println(clientWithFilters);
-    }
-
     private static void updateClient() {
         ClientDao clientDao = ClientDao.getInstance();
         Optional<Client> maybeClient = clientDao.findById(9);
@@ -130,12 +111,6 @@ public class DaoRentCarsRunner {
         System.out.println(addedClient);
     }
 
-
-    private static void findCarWithFilter() {
-        var carFilter = new CarFilter(10,0,null, null, 4, null, null);
-        var cars = CarDao.getInstance().findAllCarWithFilters(carFilter);
-        System.out.println(cars);
-    }
 
     private static void findAllCars() {
         var cars = CarDao.getInstance().findAll();

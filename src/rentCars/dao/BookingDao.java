@@ -1,6 +1,5 @@
 package rentCars.dao;
 
-import rentCars.filter.BookingFilter;
 import rentCars.entity.Booking;
 import rentCars.entity.enums.BookingStatusEnum;
 import rentCars.exception.RentCarsDaoException;
@@ -15,7 +14,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class BookingDao implements DaoRentCar<Long, Booking> {
     public static final BookingDao INSTANCE = new BookingDao();
@@ -58,15 +56,6 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
             WHERE id = ?
             """;
 
-    public static final String FIND_BOOKING_BY_USER_ID = """
-            SELECT car_id,
-            rental_start,
-            rental_finish,
-            status,
-            comment 
-            FROM booking
-            WHERE user_id = ?
-            """;
 
     private BookingDao() {}
 
@@ -88,49 +77,6 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
-    public List<Booking> findBookingWithFilters(BookingFilter bookingFilter) {
-        List<Object> parameters = new ArrayList<>();
-        List<String> whereSQL = new ArrayList<>();
-
-        if (bookingFilter.clientId() != null) {
-            whereSQL.add("client_id = ? ");
-            parameters.add(bookingFilter.clientId());
-        }
-        if (bookingFilter.carId() != null) {
-            whereSQL.add("car_id = ?");
-            parameters.add(bookingFilter.carId());
-        }
-        if(bookingFilter.administratorId() != null) {
-            whereSQL.add("administrator_id = ?");
-            parameters.add(bookingFilter.administratorId());
-        }
-        if(bookingFilter.status() != null) {
-            whereSQL.add("status LIKE = ? ");
-            parameters.add("%" + bookingFilter.status() + "%");
-        }
-        parameters.add(bookingFilter.limit());
-        parameters.add(bookingFilter.offset());
-
-        String where = whereSQL.stream()
-                .collect(Collectors.joining(" AND ", " WHERE ", " LIMIT ? OFFSET ?"));
-
-        String sql = FIND_ALL_BOOKINGS_SQL + where;
-        try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < parameters.size(); i++) {
-                preparedStatement.setObject(i + 1, parameters.get(i));
-            }
-            System.out.println(preparedStatement);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Booking> bookings = new ArrayList<>();
-            while (resultSet.next()) {
-                bookings.add(buildBooking(resultSet));
-            }
-            return bookings;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
 
     @Override
     public Optional<Booking> findById(Long id) {

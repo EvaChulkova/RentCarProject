@@ -4,7 +4,6 @@ import rentCars.entity.Car;
 import rentCars.entity.enums.CarColorEnum;
 import rentCars.entity.enums.CarStatusEnum;
 import rentCars.exception.RentCarsDaoException;
-import rentCars.filter.CarFilter;
 import rentCars.util.RentCarsConnectionManager;
 
 import java.sql.Connection;
@@ -15,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class CarDao implements DaoRentCar<Integer, Car> {
     private static final CarDao INSTANCE = new CarDao();
@@ -88,63 +86,6 @@ public class CarDao implements DaoRentCar<Integer, Car> {
 
 
     private CarDao() {}
-
-    public List<Car> findAllCarWithFilters(CarFilter carFilter) {
-        List<Object> parameters = new ArrayList<>();
-        List<String> whereSQL = new ArrayList<>();
-        if(carFilter.brand() != null) {
-            whereSQL.add("brand LIKE ? ");
-            parameters.add("%" + carFilter.brand() + "%");
-        }
-        if(carFilter.color() != null) {
-            whereSQL.add("color LIKE ? ");
-            parameters.add("%" + carFilter.color() + "%");
-        }
-        if(carFilter.seatAmount() != null) {
-            whereSQL.add("seat_amount = ? ");
-            parameters.add(carFilter.seatAmount());
-        }
-        if(carFilter.price() != null) {
-            whereSQL.add("price = ? ");
-            parameters.add(carFilter.price());
-        }
-        //whereSQL.add("price > ? AND price < ?");
-        /*if(carFilter.price() != null) {
-            whereSQL.add("price > ? ");
-            parameters.add("%" + carFilter.price() + "%");
-        }
-        if(carFilter.price() != null) {
-            whereSQL.add("price < ? ");
-            parameters.add("%" + carFilter.price() + "%");
-        }*/
-
-        if(carFilter.status() != null) {
-            whereSQL.add("status = ? ");
-            parameters.add("%" + carFilter.status() + "%");
-        }
-        parameters.add(carFilter.limit());
-        parameters.add(carFilter.offset());
-
-        var where = whereSQL.stream()
-                .collect(Collectors.joining(" AND ", " WHERE ", " LIMIT ? OFFSET ?"));
-
-        var sql = FIND_ALL_CARS_SQL + where;
-        try (var connection = RentCarsConnectionManager.open();
-        var preparedStatement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < parameters.size(); i++) {
-                preparedStatement.setObject(i + 1, parameters.get(i));
-            }
-            System.out.println(preparedStatement);
-            var resultSet = preparedStatement.executeQuery();
-            List<Car> cars = new ArrayList<>();
-            while (resultSet.next()) {
-                cars.add(buildCar(resultSet));
-            }
-            return cars;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
 
     @Override
     public List<Car> findAll() {
