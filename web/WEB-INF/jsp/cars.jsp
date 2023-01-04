@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title><fmt:message key="page.cars.allCars" /></title>
+    <title>Cars</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>

@@ -9,12 +9,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title><fmt:message key="page.createClient.title" /></title>
+    <title>Add personal information</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<%--<h1>Add info about you (client):</h1>--%>
 <h1><fmt:message key="page.createClient.addInfo" /></h1>
+
 <form action="${pageContext.request.contextPath}/add_client_info" method="post">
     <label for="ageId"><fmt:message key="page.createClient.age" />:
         <input type="text" name="age" id="ageId" required>
@@ -25,6 +25,7 @@
     <label for="validityId"><fmt:message key="page.createClient.validity" />:
         <input type="date" name="validity" id="validityId" required>
     </label><br>
+
     <button type="submit"><fmt:message key="page.createClient.button.send" /></button>
 </form>
 </body>

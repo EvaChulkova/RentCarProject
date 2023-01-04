@@ -10,11 +10,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title><fmt:message key="page.createBooking.createBooking" /></title>
+    <title>Create booking</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
 <h1><fmt:message key="page.createBooking.createBooking" /></h1>
+
 <form action="${pageContext.request.contextPath}/create_booking" method="post">
     <label for="availableCarId"><fmt:message key="page.createBooking.car" />:
         <select name="id" id="availableCarId">
