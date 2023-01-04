@@ -10,12 +10,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Info about booking</title>
+    <title><fmt:message key="page.seeBooking.seeInfo" /></title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<%--<h1>See info about booking</h1>--%>
-<h1><fmt:message key="page.seeBooking.title.seeInfo" /></h1>
+<h1><fmt:message key="page.seeBooking.seeInfo" /></h1>
 <ul>
     ${requestScope.booking.id} - ${requestScope.booking.userId} - ${requestScope.booking.carId} - ${requestScope.booking.rentalStart} - ${requestScope.booking.rentalFinish} -${requestScope.booking.status} - ${requestScope.booking.comment}
 </ul>
