@@ -11,13 +11,13 @@
 <div>
     <c:if test="${sessionScope.user.role.name() == 'ADMIN'}">
         <form action="${pageContext.request.contextPath}/add_new_car" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.addNewCar" />Add new car</button>
+            <button type="submit"><fmt:message key="page.footer.button.addNewCar" /></button>
         </form>
         <form action="${pageContext.request.contextPath}/bookings" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.seeAllBookings" />See all bookings</button>
+            <button type="submit"><fmt:message key="page.footer.button.seeAllBookings" /></button>
         </form>
         <form action="${pageContext.request.contextPath}/download_admin_report" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.downloadAdminReport" />Download admin report</button>
+            <button type="submit"><fmt:message key="page.footer.button.downloadAdminReport" /></button>
         </form>
     </c:if>
     <c:if test="${sessionScope.user.role.name() == 'CLIENT'}">
@@ -25,10 +25,10 @@
             <button type="submit">Add info about me</button>
         </form>--%>
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.seeAllMyBookings" />See all my bookings</button>
+            <button type="submit"><fmt:message key="page.footer.button.seeAllMyBookings" /></button>
         </form>
         <form action="${pageContext.request.contextPath}/download_client_report" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.downloadClientReport" />Download client report</button>
+            <button type="submit"><fmt:message key="page.footer.button.downloadClientReport" /></button>
         </form>
     </c:if>
 
