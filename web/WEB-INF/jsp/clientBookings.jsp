@@ -6,26 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>All my bookings</title>
+    <title><fmt:message key="page.clientBookings.title" /></title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>All my bookings</h1>
+<h1><fmt:message key="page.clientBookings.allMyBookings" /></h1>
 <ul>
     <c:forEach var="client_booking" items="${requestScope.client_bookings}">
         <li>
             <a href="${pageContext.request.contextPath}/see_info_about_booking?bookingId=${client_booking.id}">
                     ${client_booking.carId} - ${client_booking.rentalStart} - ${client_booking.rentalFinish} - ${client_booking.status} - ${client_booking.comment}
             </a>
-
         </li>
     </c:forEach>
 </ul>
 
 <form action="${pageContext.request.contextPath}/available_cars" method="get">
-    <button type="submit">Back</button>
+    <button type="submit"> <fmt:message key="page.clientBookings.button.back" /></button>
 </form>
 
 </body>

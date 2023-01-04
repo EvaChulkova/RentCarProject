@@ -10,20 +10,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Check booking</title>
+    <title><fmt:message key="page.checkBooking.title" /></title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>Check new booking</h1>
+<h1><fmt:message key="page.checkBooking.checkNewBooking" /></h1>
 <ul>
     ${requestScope.booking.id} - ${requestScope.booking.userId} - ${requestScope.booking.carId} - ${requestScope.booking.rentalStart} - ${requestScope.booking.rentalFinish} -${requestScope.booking.status} - ${requestScope.booking.comment}
 </ul>
 
 <form action="${pageContext.request.contextPath}/check_booking" method="get">
-    <button type="submit" name="bookingId" value="${booking.id}">Check booking</button>
+    <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.checkBooking" /></button>
 </form>
 <form action="${pageContext.request.contextPath}/bookings" method="get">
-    <button type="submit"><fmt:message key="page.checkBooking.button" /></button>
+    <button type="submit"><fmt:message key="page.checkBooking.button.back" /></button>
 </form>
 </body>
 </html>

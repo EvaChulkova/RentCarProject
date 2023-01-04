@@ -6,24 +6,26 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="page.createClient.title" /></title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>Add info about you (client):</h1>
+<%--<h1>Add info about you (client):</h1>--%>
+<h1><fmt:message key="page.createClient.addInfo" /></h1>
 <form action="${pageContext.request.contextPath}/add_client_info" method="post">
-    <label for="ageId">Age:
+    <label for="ageId"><fmt:message key="page.createClient.age" />:
         <input type="text" name="age" id="ageId" required>
     </label><br>
-    <label for="licenceNoId">Licence No:
+    <label for="licenceNoId"><fmt:message key="page.createClient.licenceNo" />:
         <input type="text" name="licenceNo" id="licenceNoId" required>
     </label><br>
-    <label for="validityId">Validity:
+    <label for="validityId"><fmt:message key="page.createClient.validity" />:
         <input type="date" name="validity" id="validityId" required>
     </label><br>
-    <button type="submit">Send</button>
+    <button type="submit"><fmt:message key="page.createClient.button.send" /></button>
 </form>
 </body>
 </html>

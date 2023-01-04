@@ -88,7 +88,7 @@ public class BookingService {
                 correctPeriodOfBookingMessage = "Your choose incorrect period of booking. Please, check dates of car booking.";
             }
 
-            String final_message = " Everything is OK! - Have a nice trip!";
+            String final_message = "Everything is OK! - Have a nice trip! ";
             BookingStatusEnum bookingStatusEnum = BookingStatusEnum.APPROVED;
 
             if ((isNotAllowableAge(clientAge)) ||

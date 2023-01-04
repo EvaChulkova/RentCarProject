@@ -10,11 +10,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="page.bookings.allBookings" /></title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1>Bookings</h1>
+<h1><fmt:message key="page.bookings.allBookings" /></h1>
 <ul>
     <c:forEach var="booking" items="${requestScope.bookings}">
         <li>
