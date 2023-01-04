@@ -62,7 +62,6 @@ public class UserDao implements DaoRentCar<Integer, User> {
             WHERE login = ? AND password = ?
             """;
 
-
     private UserDao(){}
 
     @Override
