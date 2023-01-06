@@ -24,12 +24,28 @@
             </c:forEach>
         </select><br>
     </label>
+
     <label for="rentalStartId"> <fmt:message key="page.createBooking.rentalStartTime" />:
         <input type="datetime-local" name="rentalStart" id="rentalStartId">
     </label><br>
+
     <label for="rentalFinishId"> <fmt:message key="page.createBooking.rentalFinishTime" />:
         <input type="datetime-local" name="rentalFinish" id="rentalFinishId">
     </label><br>
+
+    <label>
+        <ul>
+            <c:forEach var="availableCars" items="${requestScope.availableCars}">
+                <h3>Description of the selected car:</h3>
+                Car identification number: ${availableCars.id} <br>
+                Brand: ${availableCars.brand} <br>
+                Color: ${availableCars.color} <br>
+                Seat amount: ${availableCars.seatAmount} <br>
+                Price per day: ${availableCars.price} rubles
+            </c:forEach>
+        </ul>
+    </label>
+
     <button type="submit"><fmt:message key="page.createBooking.button.send" /></button>
 </form>
 

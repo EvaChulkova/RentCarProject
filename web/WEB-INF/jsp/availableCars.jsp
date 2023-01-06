@@ -19,7 +19,7 @@
     <c:forEach var ="car" items="${requestScope.availableCars}">
         <li>
             <img width="210" height="170" src="${pageContext.request.contextPath}/images${car.image}" alt="No image"><br>
-            <a href="${pageContext.request.contextPath}/create_booking?carId=${car.id}"> ${car.brand} - ${car.color} - ${car.seatAmount} - ${car.price} - ${car.status}" </a>
+            <a href="${pageContext.request.contextPath}/create_booking?carId=${car.id}"> Brand: ${car.brand} - Color: ${car.color} - Seat amount: ${car.seatAmount} - Price per day: ${car.price}; </a>
         </li> <br>
     </c:forEach>
 </ul>
