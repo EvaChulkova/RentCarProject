@@ -14,12 +14,11 @@ public class CreateClientReportService {
     private final UserDao userDao = UserDao.getInstance();
     private final ClientDao clientDao = ClientDao.getInstance();
 
-    public String createClientReport() {
-        List<BookingDto> allBookingDtoList = bookingService.findAll();
+    public String createClientReport(Integer userId) {
+        List<BookingDto> bookingsByUserId = bookingService.findBookingsByUserId(userId);
         StringBuilder clientReport = new StringBuilder();
-        for (BookingDto bookingDto : allBookingDtoList) {
-            clientDao.findClientIdByUserId(bookingDto.getUserId()).orElseThrow();
-            String clientBookings = String.format("Booking Id: %s, Car id: %s, Start: %s, Finish: %s, Status: %s, Comment: %s" + System.lineSeparator(),
+        for (BookingDto bookingDto : bookingsByUserId) {
+            String clientBookings = String.format("Booking Id: %s, Car id: %s, Start: %s, Finish: %s, Status: %s, Comment: %s"+ System.lineSeparator(),
                     bookingDto.getId(), bookingDto.getCarId(), bookingDto.getRentalStart(), bookingDto.getRentalFinish(), bookingDto.getStatus(), bookingDto.getComment());
             clientReport.append(clientBookings);
         }

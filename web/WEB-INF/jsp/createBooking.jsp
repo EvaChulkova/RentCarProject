@@ -34,7 +34,7 @@
 </form>
 
 <form action="${pageContext.request.contextPath}/available_cars" method="get">
-    <button type="submit"><fmt:message key="page.createBooking.button.back" />Back</button>
+    <button type="submit"><fmt:message key="page.createBooking.button.back" /></button>
 </form>
 
 </body>

@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import rentCars.dto.UserDto;
 import rentCars.service.CreateClientReportService;
 
 import java.io.IOException;
@@ -24,7 +25,8 @@ public class DownloadClientServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
-        Files.writeString(CLIENT_REPORT_FULL_PATH, createClientReportService.createClientReport());
+        var user = (UserDto) req.getSession().getAttribute("user");
+        Files.writeString(CLIENT_REPORT_FULL_PATH, createClientReportService.createClientReport(user.getId()));
 
         try (PrintWriter writer = resp.getWriter()) {
             Files.createDirectories(CLIENT_REPORT_FULL_PATH.getParent());
