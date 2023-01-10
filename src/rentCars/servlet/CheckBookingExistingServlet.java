@@ -57,7 +57,6 @@ public class CheckBookingExistingServlet extends HttpServlet {
         req.setAttribute("userById", userById);
     }
 
-
     @SneakyThrows
     private void forwardBookingDto(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
         req.setAttribute("booking", bookingDto);

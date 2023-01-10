@@ -24,7 +24,6 @@
                 From: ${booking.rentalStart} - To: ${booking.rentalFinish} <br>
                 <b>Status:</b>  ${booking.status}, ${booking.comment} <br><br>
             </a>
-
         </li>
     </c:forEach>
 </ul>

@@ -32,15 +32,26 @@
         Car identification number: ${requestScope.carById.id} <br>
         Brand: ${requestScope.carById.brand} <br>
         Color: ${requestScope.carById.color} <br>
-        Price per day: ${requestScope.carById.price} rubles
+        <b>Price per day: </b> ${requestScope.carById.price} rubles <br><br>
 
+    <img width="210" height="170" src="${pageContext.request.contextPath}/images${requestScope.carById.image}" alt="No image"><br><br>
+
+    <c:if test = "${requestScope.booking.status != 'IN_PROGRESS'}">
+        <div style="color: red">
+            <span><b><fmt:message key="page.checkBooking.alreadyChecked" /></b></span>
+        </div>
+    </c:if>
 </ul>
 
-<form action="${pageContext.request.contextPath}/check_booking" method="get">
-    <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.checkBooking" /></button>
-</form>
+<c:if test = "${requestScope.booking.status == 'IN_PROGRESS'}">
+    <form action="${pageContext.request.contextPath}/check_booking" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.checkBooking" /></button>
+    </form>
+</c:if>
+
 <form action="${pageContext.request.contextPath}/bookings" method="get">
     <button type="submit"><fmt:message key="page.checkBooking.button.back" /></button>
 </form>
+
 </body>
 </html>

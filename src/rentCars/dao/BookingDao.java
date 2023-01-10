@@ -124,6 +124,7 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
+
     public Integer findUserIdByBookingId (Long id) {
         try (Connection connection = RentCarsConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ID_BY_BOOKING_ID_SQL)) {

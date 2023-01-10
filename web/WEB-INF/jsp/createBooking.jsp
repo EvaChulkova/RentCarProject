@@ -36,14 +36,14 @@
     <label>
         <ul>
             <c:forEach var="availableCars" items="${requestScope.availableCars}">
-                <h3>Description of the selected car:</h3>
+                <b>Description of the selected car:</b><br>
                 Car identification number: ${availableCars.id} <br>
                 Brand: ${availableCars.brand} <br>
                 Color: ${availableCars.color} <br>
                 Seat amount: ${availableCars.seatAmount} <br>
-                Price per day: ${availableCars.price} rubles <br>
+                <b>Price per day: </b> ${availableCars.price} rubles <br>
 
-                <img width="210" height="170" src="${pageContext.request.contextPath}/images${availableCars.image}" alt="No image"><br>
+                <img width="210" height="170" src="${pageContext.request.contextPath}/images${availableCars.image}" alt="No image"><br><br>
             </c:forEach>
         </ul>
     </label>

@@ -19,7 +19,7 @@
     <c:forEach var="client_booking" items="${requestScope.client_bookings}">
         <li>
             <a href="${pageContext.request.contextPath}/see_info_about_booking?bookingId=${client_booking.id}">
-                <b>Car ID: </b>${client_booking.carId}
+                <b>Car ID: </b>${client_booking.carId} \---\
                 <b>Rental period:</b>
                 From: ${client_booking.rentalStart} - To: ${client_booking.rentalFinish} <br>
 

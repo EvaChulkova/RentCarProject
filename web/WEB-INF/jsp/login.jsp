@@ -14,6 +14,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<h1><fmt:message key="page.login.loginForm" /></h1>
 <form action="${pageContext.request.contextPath}/login" method="post">
 
     <label for="loginId"><fmt:message key="page.login.login" />:
@@ -24,7 +25,7 @@
         <input type="password" name="password" id="passwordId" required>
     </label><br>
 
-    <button type="submit"> <fmt:message key="page.login.submit.button" /></button>
+    <button type="submit"> <fmt:message key="page.login.submit.button" /></button><br><br>
 
     <a href="${pageContext.request.contextPath}/registration">
         <button type="button"> <fmt:message key="page.login.registration.button" /></button>

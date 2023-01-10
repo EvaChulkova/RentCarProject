@@ -14,6 +14,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<h1><fmt:message key="page.registration.registrationForm" /></h1>
 <form action="${pageContext.request.contextPath}/registration" method="post">
 
     <label for="firstNameId"><fmt:message key="page.registration.firstName" />:
@@ -40,7 +41,7 @@
         </select>
     </label><br>
 
-    <button type="submit"><fmt:message key="page.registration.button.send" /></button>
+    <button type="submit"><fmt:message key="page.registration.button.send" /></button><br>
     <c:if test="${not empty requestScope.rentErrors}">
         <div style="color: red">
             <c:forEach var="error" items="${requestScope.rentErrors}">
@@ -48,7 +49,10 @@
             </c:forEach>
         </div>
     </c:if>
+</form>
 
+<form action="${pageContext.request.contextPath}/login" method="get">
+    <button type="submit"><fmt:message key="page.registration.button.login" /></button>
 </form>
 </body>
 </html>

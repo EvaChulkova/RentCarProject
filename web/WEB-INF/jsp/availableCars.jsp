@@ -20,7 +20,7 @@
         <li>
             <img width="210" height="170" src="${pageContext.request.contextPath}/images${car.image}" alt="No image"><br>
             <a href="${pageContext.request.contextPath}/create_booking?carId=${car.id}">
-                Brand: ${car.brand}  -  Color: ${car.color}  -  Seat amount: ${car.seatAmount} <br>
+                <b>Brand:</b>  ${car.brand}  \---\  <b>Color: </b> ${car.color}  \---\  <b>Seat amount: </b> ${car.seatAmount} <br>
                 <b>Price per day:</b> ${car.price} rubles
             </a>
         </li> <br>
