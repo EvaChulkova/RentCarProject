@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import rentCars.dto.BookingDto;
+import rentCars.service.BookingService;
+import rentCars.service.CarService;
 import rentCars.service.SeeBookingService;
 import rentCars.util.JSPHelper;
 
@@ -17,10 +19,14 @@ import static rentCars.util.UrlPath.SEE_INFO_ABOUT_BOOKING;
 @WebServlet(SEE_INFO_ABOUT_BOOKING)
 public class SeeBookingServlet extends HttpServlet {
     private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
+    private final CarService carService = CarService.getInstance();
+    private final BookingService bookingService = BookingService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer bookingId = Integer.valueOf(req.getParameter("bookingId"));
+
+        showInfoAboutCarFromOrder(req, bookingId);
 
         seeBookingService.findBookingById(bookingId).ifPresentOrElse(bookingDto -> {
             forwardBookingDto(req, resp, bookingDto);
@@ -40,5 +46,11 @@ public class SeeBookingServlet extends HttpServlet {
         req.setAttribute("booking", bookingDto);
         req.getRequestDispatcher(JSPHelper.getPath("seeBooking"))
                 .forward(req, resp);
+    }
+
+    private void showInfoAboutCarFromOrder(HttpServletRequest req, Integer bookingId) {
+        var carIdFromBooking = bookingService.findCarIdByBookingId(bookingId);
+        var carFromBookingById = carService.findNotOptionalCarById(carIdFromBooking);
+        req.setAttribute("carById", carFromBookingById);
     }
 }

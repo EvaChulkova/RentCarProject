@@ -16,12 +16,15 @@
 <h1><fmt:message key="page.createClient.addInfo" /></h1>
 
 <form action="${pageContext.request.contextPath}/add_client_info" method="post">
+
     <label for="ageId"><fmt:message key="page.createClient.age" />:
         <input type="text" name="age" id="ageId" required>
     </label><br>
+
     <label for="licenceNoId"><fmt:message key="page.createClient.licenceNo" />:
         <input type="text" name="licenceNo" id="licenceNoId" required>
     </label><br>
+
     <label for="validityId"><fmt:message key="page.createClient.validity" />:
         <input type="date" name="validity" id="validityId" required>
     </label><br>

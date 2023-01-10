@@ -20,6 +20,7 @@
     <label for="brandId"> <fmt:message key="page.createCar.brand" />:
         <input type="text" name="brand" id="brandId">
     </label><br>
+
     <label for="colorId"> <fmt:message key="page.createCar.color" />:
         <select name="color" id="colorId">
             <c:forEach var="color" items="${requestScope.color}">
@@ -27,12 +28,15 @@
             </c:forEach>
         </select>
     </label><br>
+
     <label for="seatAmountId"> <fmt:message key="page.createCar.seatAmount" />:
         <input type="text" name="seatAmount" id="seatAmountId">
     </label><br>
+
     <label for="priceId"> <fmt:message key="page.createCar.price" />:
         <input type="text" name="price" id="priceId">
     </label><br>
+
     <label for="statusId"> <fmt:message key="page.createCar.status" />:
         <select name="status" id="statusId">
             <c:forEach var="status" items="${requestScope.status}">
@@ -40,6 +44,7 @@
             </c:forEach>
         </select>
     </label><br>
+
     <label for="imageId"><fmt:message key="page.createCar.image" />:
         <input type="file" name="image" id="imageId" required>
     </label><br>

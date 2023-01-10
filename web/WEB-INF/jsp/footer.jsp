@@ -19,6 +19,9 @@
         <form action="${pageContext.request.contextPath}/download_admin_report" method="get">
             <button type="submit"><fmt:message key="page.footer.button.downloadAdminReport" /></button>
         </form>
+        <form action="${pageContext.request.contextPath}/clients" method="get">
+            <button type="submit"><fmt:message key="page.footer.button.seeAllClients" /></button>
+        </form>
     </c:if>
     <c:if test="${sessionScope.user.role.name() == 'CLIENT'}">
         <%--<form action="${pageContext.request.contextPath}/add_client_info" method="get">

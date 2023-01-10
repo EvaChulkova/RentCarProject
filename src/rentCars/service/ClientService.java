@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import rentCars.dao.ClientDao;
 import rentCars.dto.ClientDto;
 import rentCars.dto.CreateDto.CreateClientDto;
+import rentCars.entity.Client;
 import rentCars.mapper.CreateClientMapper;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public class ClientService {
                         .build()
                 )
                 .collect(toList());
+    }
+
+    public Optional<Client> findClientByID(Integer clientId) {
+        return clientDao.findById(clientId);
     }
 
     public void create(CreateClientDto createClientDto) {

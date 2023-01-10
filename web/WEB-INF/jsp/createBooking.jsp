@@ -41,7 +41,9 @@
                 Brand: ${availableCars.brand} <br>
                 Color: ${availableCars.color} <br>
                 Seat amount: ${availableCars.seatAmount} <br>
-                Price per day: ${availableCars.price} rubles
+                Price per day: ${availableCars.price} rubles <br>
+
+                <img width="210" height="170" src="${pageContext.request.contextPath}/images${availableCars.image}" alt="No image"><br>
             </c:forEach>
         </ul>
     </label>

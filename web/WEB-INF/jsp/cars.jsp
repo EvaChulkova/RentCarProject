@@ -19,9 +19,10 @@
     <c:forEach var = "car" items="${requestScope.cars}">
         <li>
             <img width="210" height="170" src="${pageContext.request.contextPath}/images${car.image}" alt="No image"><br>
-            Car ID: ${car.id} <br>
-            Brand: ${car.brand}  -  Color: ${car.color}  -  Seat amount: ${car.seatAmount} <br>
-            Price per day: ${car.price} rubles - Status: ${car.status} <br>
+            <b>Car ID: </b> ${car.id} <br>
+            <b>Brand: </b> ${car.brand} \---\ <b>Color: </b> ${car.color} \---\ <b>Seat amount: </b> ${car.seatAmount} <br>
+            <b>Price per day: </b> ${car.price} rubles <br>
+            <b>Status: </b> ${car.status} <br>
         </li><br>
     </c:forEach>
 </ul>

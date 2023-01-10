@@ -15,18 +15,23 @@
 <body>
 <%@ include file="header.jsp" %>
 <form action="${pageContext.request.contextPath}/registration" method="post">
+
     <label for="firstNameId"><fmt:message key="page.registration.firstName" />:
         <input type="text" name="firstName" id="firstNameId">
     </label><br>
+
     <label for="lastNameId"><fmt:message key="page.registration.lastName" />:
         <input type="text" name="lastName" id="lastNameId">
     </label><br>
+
     <label for="loginId"><fmt:message key="page.registration.login" />:
         <input type="text" name="login" id="loginId">
     </label><br>
+
     <label for="passwordId"><fmt:message key="page.registration.password" />:
         <input type="password" name="password" id="passwordId">
     </label><br>
+
     <label for="roleId"><fmt:message key="page.registration.role" />:
         <select name="role" id="roleId">
             <c:forEach var="role" items="${requestScope.roles}">

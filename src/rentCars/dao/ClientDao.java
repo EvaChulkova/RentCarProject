@@ -53,6 +53,7 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             WHERE user_id = ?
             """;
 
+
     private ClientDao() {}
 
     @Override
@@ -70,7 +71,6 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             throw new RentCarsDaoException(throwables);
         }
     }
-
 
     @Override
     public Optional<Client> findById(Integer id) {

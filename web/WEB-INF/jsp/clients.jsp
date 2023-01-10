@@ -15,14 +15,20 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<h1><fmt:message key="page.clients.allClients" />Clients</h1>
+<h1><fmt:message key="page.clients.allClients" /></h1>
 
 <ul>
     <c:forEach var="client" items="${requestScope.clients}">
         <li>
-            ${client.id} - ${client.userId} - ${client.age} - ${client.licenceNo} - ${client.validity}
+            <b>Client ID: </b> ${client.id} - <b>User ID: </b> ${client.userId} <br>
+            <b>Driving licence No: </b> ${client.licenceNo} <br>
+            <b>Driving licence validity: </b> ${client.validity} <br><br>
         </li>
     </c:forEach>
 </ul>
+
+<form action="${pageContext.request.contextPath}/cars" method="get">
+    <button type="submit"><fmt:message key="page.bookings.button.back" /></button>
+</form>
 </body>
 </html>

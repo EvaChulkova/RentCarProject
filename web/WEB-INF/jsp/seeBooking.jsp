@@ -16,14 +16,21 @@
 <%@ include file="header.jsp" %>
 <h1><fmt:message key="page.seeBooking.seeInfo" /></h1>
 <ul>
-    Booking identification number: ${requestScope.booking.id}<br><br> <%--- ${requestScope.booking.userId}--%>
+    <b>Booking identification number:</b>  ${requestScope.booking.id}<br><br>
 
-    Car identification number: ${requestScope.booking.carId} <br><br>
+    <b>Car details:</b> <br>
+    Car identification number: ${requestScope.booking.carId} <br>
+    Brand: ${requestScope.carById.brand} <br>
+    Color: ${requestScope.carById.color} <br>
+    Seat amount: ${requestScope.carById.seatAmount} <br>
+    Price per day: ${requestScope.carById.price} rubles <br>
 
-    Rental period: <br>
+    <img width="210" height="170" src="${pageContext.request.contextPath}/images${requestScope.carById.image}" alt="No image"><br><br>
+
+    <b>Rental period:</b> <br>
     From: ${requestScope.booking.rentalStart} - To: ${requestScope.booking.rentalFinish} <br><br>
 
-    Status: <br>
+    <b>Status:</b>  <br>
     ${requestScope.booking.status}, ${requestScope.booking.comment}
 </ul>
 

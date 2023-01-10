@@ -16,19 +16,19 @@
 <%@ include file="header.jsp" %>
 <h1><fmt:message key="page.checkBooking.checkNewBooking" /></h1>
 <ul>
-    Booking identification number: ${requestScope.booking.id} - Client ID:${requestScope.booking.userId} - Car ID: ${requestScope.booking.carId} <br><br>
+    <b>Booking identification number: </b> ${requestScope.booking.id} \---\ <b>Client ID: </b> ${requestScope.booking.userId} \---\ <b>Car ID: </b> ${requestScope.booking.carId} <br><br>
 
-    Rental period: <br>
+    <b>Rental period: </b> <br>
     From: ${requestScope.booking.rentalStart}  To: ${requestScope.booking.rentalFinish} <br><br>
 
-    Status:
-    ${requestScope.booking.status}, ${requestScope.booking.comment}
+    <b>Status: </b>
+    ${requestScope.booking.status}, ${requestScope.booking.comment} <br><br>
 
-    <h3>Information about client:</h3>
+    <b>Client details: </b><br>
         Client identification number: ${requestScope.userById.id} <br>
-        Name: ${requestScope.userById.firstName} ${requestScope.userById.lastName} <br>
+        Name: ${requestScope.userById.firstName} ${requestScope.userById.lastName} <br><br>
 
-    <h3>Information about car:</h3>
+    <b>Car details: </b><br>
         Car identification number: ${requestScope.carById.id} <br>
         Brand: ${requestScope.carById.brand} <br>
         Color: ${requestScope.carById.color} <br>

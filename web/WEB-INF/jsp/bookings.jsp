@@ -19,7 +19,10 @@
     <c:forEach var="booking" items="${requestScope.bookings}">
         <li>
             <a href="${pageContext.request.contextPath}/check_booking_existing?bookingId=${booking.id}">
-                Booking ID: ${booking.id} - User ID: ${booking.userId}  Car ID: ${booking.carId}  Rental start: ${booking.rentalStart} - Rental finish: ${booking.rentalFinish} <br>  Status: ${booking.status}, ${booking.comment} <br><br>
+                <b>Booking ID:</b> ${booking.id} \---\ <b>Client ID:</b> ${booking.userId} \---\ <b>Car ID:</b>  ${booking.carId} <br>
+                <b>Rental period: </b> <br>
+                From: ${booking.rentalStart} - To: ${booking.rentalFinish} <br>
+                <b>Status:</b>  ${booking.status}, ${booking.comment} <br><br>
             </a>
 
         </li>

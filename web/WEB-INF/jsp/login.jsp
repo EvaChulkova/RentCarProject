@@ -15,17 +15,21 @@
 <body>
 <%@ include file="header.jsp" %>
 <form action="${pageContext.request.contextPath}/login" method="post">
+
     <label for="loginId"><fmt:message key="page.login.login" />:
         <input type="text" name="login" id="loginId" value="${param.login}" required>
     </label><br>
+
     <label for="passwordId"> <fmt:message key="page.login.password" />:
         <input type="password" name="password" id="passwordId" required>
     </label><br>
+
     <button type="submit"> <fmt:message key="page.login.submit.button" /></button>
 
     <a href="${pageContext.request.contextPath}/registration">
         <button type="button"> <fmt:message key="page.login.registration.button" /></button>
     </a>
+
     <c:if test="${param.error != null}">
         <div style="color: red">
             <span><fmt:message key="page.login.error" /></span>
