@@ -16,7 +16,6 @@ import static rentCars.util.UrlPath.BOOKINGS;
 public class BookingServlet extends HttpServlet {
     private final BookingService bookingService = BookingService.getInstance();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("bookings", bookingService.findAll());

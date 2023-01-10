@@ -23,7 +23,7 @@
     Brand: ${requestScope.carById.brand} <br>
     Color: ${requestScope.carById.color} <br>
     Seat amount: ${requestScope.carById.seatAmount} <br>
-    Price per day: ${requestScope.carById.price} rubles <br>
+    <b>Price per day: </b> ${requestScope.carById.price} rubles <br>
 
     <img width="210" height="170" src="${pageContext.request.contextPath}/images${requestScope.carById.image}" alt="No image"><br><br>
 
