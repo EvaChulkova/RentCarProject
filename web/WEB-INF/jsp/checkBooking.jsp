@@ -16,7 +16,7 @@
 <%@ include file="header.jsp" %>
 <h1><fmt:message key="page.checkBooking.checkNewBooking" /></h1>
 <ul>
-    Booking identification number: ${requestScope.booking.id} - Client (user) ID:${requestScope.booking.userId} - Car ID: ${requestScope.booking.carId} <br><br>
+    Booking identification number: ${requestScope.booking.id} - Client ID:${requestScope.booking.userId} - Car ID: ${requestScope.booking.carId} <br><br>
 
     Rental period: <br>
     From: ${requestScope.booking.rentalStart}  To: ${requestScope.booking.rentalFinish} <br><br>
@@ -24,11 +24,16 @@
     Status:
     ${requestScope.booking.status}, ${requestScope.booking.comment}
 
-        <h3>Info about car:</h3>
+    <h3>Information about client:</h3>
+        Client identification number: ${requestScope.userById.id} <br>
+        Name: ${requestScope.userById.firstName} ${requestScope.userById.lastName} <br>
+
+    <h3>Information about car:</h3>
         Car identification number: ${requestScope.carById.id} <br>
         Brand: ${requestScope.carById.brand} <br>
         Color: ${requestScope.carById.color} <br>
         Price per day: ${requestScope.carById.price} rubles
+
 </ul>
 
 <form action="${pageContext.request.contextPath}/check_booking" method="get">

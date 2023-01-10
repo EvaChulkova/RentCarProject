@@ -3,6 +3,7 @@ package rentCars.service;
 import rentCars.dao.UserDao;
 import rentCars.dto.CreateDto.CreateUserDto;
 import rentCars.dto.UserDto;
+import rentCars.entity.User;
 import rentCars.exception.ValidationException;
 import rentCars.mapper.CreateUserMapper;
 import rentCars.mapper.UserMapper;
@@ -21,6 +22,14 @@ public class UserService {
     public Optional<UserDto> login(String email, String password) {
         return userDao.findByEmailAndPassword(email, password)
                 .map(userMapper::mapFrom);
+    }
+
+    public Optional<User> findUserById(Integer id) {
+        return userDao.findById(id);
+    }
+
+    public User findNotOptionalUserById(Integer id) {
+        return userDao.findNotOptionalUserById(id);
     }
 
     public Integer create(CreateUserDto createUserDto) {

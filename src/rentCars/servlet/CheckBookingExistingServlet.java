@@ -10,6 +10,7 @@ import rentCars.dto.BookingDto;
 import rentCars.service.BookingService;
 import rentCars.service.CarService;
 import rentCars.service.SeeBookingService;
+import rentCars.service.UserService;
 import rentCars.util.JSPHelper;
 
 import java.io.IOException;
@@ -21,12 +22,14 @@ public class CheckBookingExistingServlet extends HttpServlet {
     private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
     private final CarService carService = CarService.getInstance();
     private final BookingService bookingService = BookingService.getInstance();
+    private final UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer bookingId = Integer.valueOf(req.getParameter("bookingId"));
 
         showInfoAboutCarFromOrder(req, bookingId);
+        showInfoAboutClientFromOrder(req, bookingId);
 
         seeBookingService.findBookingById(bookingId).ifPresentOrElse(bookingDto -> {
             forwardBookingDto(req, resp, bookingDto);
@@ -47,6 +50,13 @@ public class CheckBookingExistingServlet extends HttpServlet {
         var carFromBookingById = carService.findNotOptionalCarById(carIdFromBooking);
         req.setAttribute("carById", carFromBookingById);
     }
+
+    private void showInfoAboutClientFromOrder(HttpServletRequest req, Integer bookingId) {
+        var userIdFromBooking = bookingService.findUserIdByBookingId(bookingId);
+        var userById = userService.findNotOptionalUserById(userIdFromBooking);
+        req.setAttribute("userById", userById);
+    }
+
 
     @SneakyThrows
     private void forwardBookingDto(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {

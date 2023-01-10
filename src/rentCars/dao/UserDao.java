@@ -62,6 +62,7 @@ public class UserDao implements DaoRentCar<Integer, User> {
             WHERE login = ? AND password = ?
             """;
 
+
     private UserDao(){}
 
     @Override
@@ -110,6 +111,29 @@ public class UserDao implements DaoRentCar<Integer, User> {
 
             preparedStatement.executeUpdate();
 
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public User findNotOptionalUserById(Integer id) {
+        try (Connection connection = RentCarsConnectionManager.open()) {
+            return findNotOptionalUserById(id, connection);
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public User findNotOptionalUserById(Integer id, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID_SQL)) {
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = buildUser(resultSet);
+            }
+            return user;
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);
         }

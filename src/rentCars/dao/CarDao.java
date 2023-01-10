@@ -164,7 +164,6 @@ public class CarDao implements DaoRentCar<Integer, Car> {
         }
     }
 
-
     public Optional<Car> findCarById(Integer id, Connection connection) {
         try (var preparedStatement= connection.prepareStatement(FIND_CAR_BY_ID_SQL)) {
             preparedStatement.setInt(1, id);
@@ -253,7 +252,6 @@ public class CarDao implements DaoRentCar<Integer, Car> {
             throw new RentCarsDaoException(throwables);
         }
     }
-
 
 
 

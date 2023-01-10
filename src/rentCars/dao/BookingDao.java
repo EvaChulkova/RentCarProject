@@ -56,12 +56,14 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
             WHERE id = ?
             """;
 
-    public static final String FIND_BOOKING_BY_USER_ID = FIND_ALL_BOOKINGS_SQL + """
-            WHERE user_id = ?
-            """;
-
     public static final String FIND_CAR_ID_BY_BOOKING_ID_SQL = """
             SELECT car_id
+            FROM booking
+            WHERE id = ?
+            """;
+
+    public static final String FIND_USER_ID_BY_BOOKING_ID_SQL = """
+            SELECT user_id
             FROM booking
             WHERE id = ?
             """;
@@ -116,6 +118,23 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
                 carId = resultSet.getInt("car_id");
             }
             return carId;
+
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public Integer findUserIdByBookingId (Long id) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ID_BY_BOOKING_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Integer userId = null;
+            if (resultSet.next()) {
+                userId = resultSet.getInt("user_id");
+            }
+            return userId;
 
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);

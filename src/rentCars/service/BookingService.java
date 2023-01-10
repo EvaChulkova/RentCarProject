@@ -50,6 +50,10 @@ public class BookingService {
         return bookingDao.findCarIdByBookingId(Long.valueOf(bookingId));
     }
 
+    public Integer findUserIdByBookingId (Integer bookingId) {
+        return bookingDao.findUserIdByBookingId(Long.valueOf(bookingId));
+    }
+
     public List<BookingDto> findBookingsByUserId (Integer userId) {
         var bookingDtos = findAll();
         return bookingDtos.stream()

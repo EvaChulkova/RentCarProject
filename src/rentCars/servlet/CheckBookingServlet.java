@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import rentCars.dto.BookingDto;
 import rentCars.service.BookingService;
-import rentCars.service.CarService;
 import rentCars.service.SeeBookingService;
 import rentCars.util.JSPHelper;
 
@@ -20,7 +19,6 @@ import static rentCars.util.UrlPath.CHECK_BOOKING;
 public class CheckBookingServlet extends HttpServlet {
     private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
     private final BookingService bookingService = BookingService.getInstance();
-    private final CarService carService = CarService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
