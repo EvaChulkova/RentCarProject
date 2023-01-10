@@ -16,7 +16,15 @@
 <%@ include file="header.jsp" %>
 <h1><fmt:message key="page.seeBooking.seeInfo" /></h1>
 <ul>
-    ${requestScope.booking.id} - ${requestScope.booking.userId} - ${requestScope.booking.carId} - ${requestScope.booking.rentalStart} - ${requestScope.booking.rentalFinish} -${requestScope.booking.status} - ${requestScope.booking.comment}
+    Booking identification number: ${requestScope.booking.id}<br><br> <%--- ${requestScope.booking.userId}--%>
+
+    Car identification number: ${requestScope.booking.carId} <br><br>
+
+    Rental period: <br>
+    From: ${requestScope.booking.rentalStart} - To: ${requestScope.booking.rentalFinish} <br><br>
+
+    Status: <br>
+    ${requestScope.booking.status}, ${requestScope.booking.comment}
 </ul>
 
 <form action="${pageContext.request.contextPath}/client_bookings" method="get">
