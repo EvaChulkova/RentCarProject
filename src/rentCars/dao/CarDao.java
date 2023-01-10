@@ -132,6 +132,29 @@ public class CarDao implements DaoRentCar<Integer, Car> {
         }
     }
 
+    public Car findNotOptionalCar(Integer id) {
+        try (Connection connection = RentCarsConnectionManager.open()) {
+            return findNotOptionalCarById(id, connection);
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    public Car findNotOptionalCarById(Integer id, Connection connection) {
+        try (var preparedStatement= connection.prepareStatement(FIND_CAR_BY_ID_SQL)) {
+            preparedStatement.setInt(1, id);
+
+            var resultSet = preparedStatement.executeQuery();
+            Car car = null;
+            if (resultSet.next()) {
+                car = buildCar(resultSet);
+            }
+            return car;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
     @Override
     public Optional<Car> findById(Integer id) {
         try (Connection connection = RentCarsConnectionManager.open()) {
@@ -140,6 +163,7 @@ public class CarDao implements DaoRentCar<Integer, Car> {
             throw new RentCarsDaoException(throwables);
         }
     }
+
 
     public Optional<Car> findCarById(Integer id, Connection connection) {
         try (var preparedStatement= connection.prepareStatement(FIND_CAR_BY_ID_SQL)) {

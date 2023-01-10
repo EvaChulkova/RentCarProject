@@ -16,9 +16,18 @@ import static rentCars.util.UrlPath.BOOKINGS;
 public class BookingServlet extends HttpServlet {
     private final BookingService bookingService = BookingService.getInstance();
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("bookings", bookingService.findAll());
+
+        /*Integer carId = Integer.valueOf(req.getParameter("car_id"));
+        Optional<Car> carById = carService.findCarById(carId);*/
+
+        /*var booking = (BookingDto) req.getSession().getAttribute("booking");
+        var carFromBookingById = carService.findCarById(booking.getCarId());
+
+        req.setAttribute("carById", carFromBookingById);*/
 
         req.getRequestDispatcher(JSPHelper.getPath("bookings"))
                 .forward(req, resp);

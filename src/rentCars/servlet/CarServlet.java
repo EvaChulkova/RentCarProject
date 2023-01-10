@@ -22,6 +22,5 @@ public class CarServlet extends HttpServlet {
 
         req.getRequestDispatcher(JSPHelper.getPath("cars"))
                 .forward(req, resp);
-
     }
 }

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import rentCars.dto.BookingDto;
 import rentCars.service.BookingService;
+import rentCars.service.CarService;
 import rentCars.service.SeeBookingService;
 import rentCars.util.JSPHelper;
 
@@ -17,8 +18,9 @@ import static rentCars.util.UrlPath.CHECK_BOOKING;
 
 @WebServlet(CHECK_BOOKING)
 public class CheckBookingServlet extends HttpServlet {
-    SeeBookingService seeBookingService = SeeBookingService.getInstance();
-    BookingService bookingService = BookingService.getInstance();
+    private final SeeBookingService seeBookingService = SeeBookingService.getInstance();
+    private final BookingService bookingService = BookingService.getInstance();
+    private final CarService carService = CarService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,6 +43,7 @@ public class CheckBookingServlet extends HttpServlet {
     private void forwardCheckedExistingBooking(HttpServletRequest req, HttpServletResponse resp, BookingDto bookingDto) {
         bookingService.checkBooking(bookingDto);
         req.setAttribute("bookings", bookingService.findAll());
+
         req.getRequestDispatcher(JSPHelper.getPath("bookings"))
                 .forward(req, resp);
     }

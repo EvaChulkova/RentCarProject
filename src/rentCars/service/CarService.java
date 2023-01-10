@@ -4,9 +4,11 @@ import lombok.SneakyThrows;
 import rentCars.dao.CarDao;
 import rentCars.dto.CarDto;
 import rentCars.dto.CreateDto.CreateCarDto;
+import rentCars.entity.Car;
 import rentCars.mapper.CreateCarMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -31,6 +33,8 @@ public class CarService {
                 )
                 .collect(toList());
     }
+
+
 
     public List<CarDto> findAvailableCars() {
         return carDao.findAvailableCars().stream()
@@ -58,8 +62,14 @@ public class CarService {
                         .image(carDto.getImage())
                         .build())
                 .collect(toList());
+    }
 
+    public Optional<Car> findCarById (Integer carId) {
+        return carDao.findById(carId);
+    }
 
+    public Car findNotOptionalCarById (Integer carId) {
+        return carDao.findNotOptionalCar(carId);
     }
 
     @SneakyThrows

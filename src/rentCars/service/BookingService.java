@@ -46,7 +46,9 @@ public class BookingService {
                 .collect(toList());
     }
 
-
+    public Integer findCarIdByBookingId (Integer bookingId) {
+        return bookingDao.findCarIdByBookingId(Long.valueOf(bookingId));
+    }
 
     public List<BookingDto> findBookingsByUserId (Integer userId) {
         var bookingDtos = findAll();
