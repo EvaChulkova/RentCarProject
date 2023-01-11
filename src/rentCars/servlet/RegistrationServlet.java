@@ -13,6 +13,7 @@ import rentCars.util.JSPHelper;
 
 import java.io.IOException;
 
+import static rentCars.util.UrlPath.LOGIN;
 import static rentCars.util.UrlPath.REGISTRATION;
 
 @WebServlet(REGISTRATION)
@@ -38,8 +39,16 @@ public class RegistrationServlet extends HttpServlet {
                 .build();
 
         try {
-            userService.create(createUserDto);
-            resp.sendRedirect("/login");
+            String login = createUserDto.getLogin();
+            String regexLogin = "[a-zA-Z0-9]\\w*@\\w{3,}\\.(com|ru)";
+            if (login.matches(regexLogin)) {
+                userService.create(createUserDto);
+                resp.sendRedirect(LOGIN);
+            } else {
+                resp.sendRedirect(REGISTRATION + "?error&login=" + req.getParameter("login"));
+            }
+
+
         } catch (ValidationException validationException) {
             req.setAttribute("rent_errors", validationException.getErrors());
             doGet(req, resp);

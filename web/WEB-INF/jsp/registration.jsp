@@ -22,11 +22,11 @@
     </label><br>
 
     <label for="lastNameId"><fmt:message key="page.registration.lastName" />:
-        <input type="text" name="lastName" id="lastNameId">
+        <input type="text" name="lastName" id="lastNameId" >
     </label><br>
 
     <label for="loginId"><fmt:message key="page.registration.login" />:
-        <input type="text" name="login" id="loginId">
+        <input type="text" name="login" id="loginId" placeholder="email@gmail.com" value="${param.login}">
     </label><br>
 
     <label for="passwordId"><fmt:message key="page.registration.password" />:
@@ -42,13 +42,14 @@
     </label><br>
 
     <button type="submit"><fmt:message key="page.registration.button.send" /></button><br>
-    <c:if test="${not empty requestScope.rentErrors}">
+
+    <c:if test="${param.login != null}">
         <div style="color: red">
-            <c:forEach var="error" items="${requestScope.rentErrors}">
-                <span>${error.message}</span>
-            </c:forEach>
+            <span><fmt:message key="page.registration.checkLogin" /></span>
         </div>
     </c:if>
+
+
 </form>
 
 <form action="${pageContext.request.contextPath}/login" method="get">

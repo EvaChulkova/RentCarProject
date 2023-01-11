@@ -18,7 +18,7 @@
 <form action="${pageContext.request.contextPath}/login" method="post">
 
     <label for="loginId"><fmt:message key="page.login.login" />:
-        <input type="text" name="login" id="loginId" value="${param.login}" required>
+        <input type="text" name="login" id="loginId" placeholder="email@gmail.com" value="${param.login}" required>
     </label><br>
 
     <label for="passwordId"> <fmt:message key="page.login.password" />:
