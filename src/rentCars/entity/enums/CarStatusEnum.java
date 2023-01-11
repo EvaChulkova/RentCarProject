@@ -3,6 +3,6 @@ package rentCars.entity.enums;
 public enum CarStatusEnum {
     AVAILABLE,
     BOOKED,
-    NOT_AVAILABLE,
+    WAITING_APPROVING,
     IN_CAR_SERVICE
 }

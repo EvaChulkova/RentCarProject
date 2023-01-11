@@ -41,6 +41,12 @@
             <span><b><fmt:message key="page.checkBooking.alreadyChecked" /></b></span>
         </div>
     </c:if>
+
+    <c:if test="${requestScope.booking.status == 'CANCELLED'}">
+        <div style="color: red">
+            <span><b><fmt:message key="page.checkBooking.cancelled" /></b></span>
+        </div>
+    </c:if>
 </ul>
 
 <c:if test = "${requestScope.booking.status == 'IN_PROGRESS'}">
@@ -49,9 +55,11 @@
     </form>
 </c:if>
 
-<form action="${pageContext.request.contextPath}/cancel_booking" method="get">
-    <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
-</form>
+<c:if test="${requestScope.booking.status != 'COMPLETED'} || test=${requestScope.booking.status != 'CANCELLED'}">
+    <form action="${pageContext.request.contextPath}/cancel_booking" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.cancelBooking" /> </button>
+    </form>
+</c:if>
 
 
 <form action="${pageContext.request.contextPath}/bookings" method="get">

@@ -253,8 +253,6 @@ public class CarDao implements DaoRentCar<Integer, Car> {
         }
     }
 
-
-
     public static CarDao getInstance() {
         return INSTANCE;
     }

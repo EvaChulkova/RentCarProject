@@ -47,6 +47,4 @@ public class CancelBookingServlet extends HttpServlet {
         req.getRequestDispatcher(JSPHelper.getPath("bookings"))
                 .forward(req, resp);
     }
-
-
 }

@@ -32,15 +32,29 @@
 
     <b>Status:</b>  <br>
     ${requestScope.booking.status}, ${requestScope.booking.comment}
+
+    <c:if test="${requestScope.booking.status == 'CANCELLED'}">
+        <div style="color: red">
+            <span><b><fmt:message key="page.checkBooking.cancelled" /></b></span>
+        </div>
+    </c:if>
+
 </ul>
 
-<form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
-    <button type="submit" name="bookingId" value="${booking.id}"> Send cancel message </button>
-</form>
+
+
+<c:if test="${requestScope.booking.status != 'CANCELLED'}">
+    <form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.seeBooking.sendCancelMessage" /> </button>
+    </form>
+</c:if>
+
+
 
 
 <form action="${pageContext.request.contextPath}/client_bookings" method="get">
     <button type="submit"><fmt:message key="page.seeBooking.button.back" /></button>
 </form>
+
 </body>
 </html>
