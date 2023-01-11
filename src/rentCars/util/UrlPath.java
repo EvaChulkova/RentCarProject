@@ -23,6 +23,8 @@ public class UrlPath {
     public static final String CHECK_BOOKING_EXISTING ="/check_booking_existing";
     public static final String AVAILABLE_CARS = "/available_cars";
     public static final String CHECK_BOOKING = "/check_booking";
+    public static final String CANCEL_BOOKING = "/cancel_booking";
+    public static final String SEND_CANCEL_MESSAGE = "/send_cancel_message";
     public static final String SEE_INFO_ABOUT_BOOKING = "/see_info_about_booking";
     public static final String DOWNLOAD_ADMIN_REPORT = "/download_admin_report";
     public static final String DOWNLOAD_CLIENT_REPORT = "/download_client_report";

@@ -66,6 +66,55 @@ public class BookingService {
         bookingDao.add(booking);
     }
 
+    public void sendCancelBookingMessage(BookingDto bookingDto) {
+        Long bookingDtoId = bookingDto.getId();
+        String cancelBookingMessage = "Please, cancel booking. Booking ID: " + bookingDtoId;
+
+        Optional<Booking> booking = bookingDao.findById(bookingDto.getId());
+        if (booking.isPresent()) {
+            Booking bookingToUpdate = Booking.builder()
+                    .id(bookingDto.getId())
+                    .userId(bookingDto.getUserId())
+                    .carId(bookingDto.getCarId())
+                    .rentalStart(bookingDto.getRentalStart())
+                    .rentalFinish(bookingDto.getRentalFinish())
+                    .status(bookingDto.getStatus())
+                    .comment(cancelBookingMessage)
+                    .build();
+            bookingDao.update(bookingToUpdate);
+        }
+    }
+
+    public void cancelBooking(BookingDto bookingDto) {
+        Long cancelledBookingId = bookingDto.getId();
+        Integer cancelledCarId = bookingDto.getCarId();
+        String cancelMessage = "Your booking is cancelled. Wait to see you again!";
+
+        Optional<Car> car = carDao.findById(cancelledCarId);
+        if (car.isPresent()) {
+            Car carToUpdate = Car.builder()
+                    .id(bookingDto.getCarId())
+                    .status(CarStatusEnum.AVAILABLE)
+                    .build();
+            carDao.updateCarFromBooking(carToUpdate);
+        }
+
+        Optional<Booking> booking = bookingDao.findById(cancelledBookingId);
+        if (booking.isPresent()) {
+            Booking bookingToUpdate = Booking.builder()
+                    .id(bookingDto.getId())
+                    .userId(bookingDto.getUserId())
+                    .carId(bookingDto.getCarId())
+                    .rentalStart(bookingDto.getRentalStart())
+                    .rentalFinish(bookingDto.getRentalFinish())
+                    .status(BookingStatusEnum.CANCELLED)
+                    .comment(cancelMessage)
+                    .build();
+            bookingDao.update(bookingToUpdate);
+        }
+    }
+
+
     public void checkBooking(BookingDto bookingDto) {
         Integer userId = bookingDto.getUserId();
         Optional<Integer> clientIdByUserId = clientDao.findClientIdByUserId(userId);

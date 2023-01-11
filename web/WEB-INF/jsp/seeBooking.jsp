@@ -34,6 +34,11 @@
     ${requestScope.booking.status}, ${requestScope.booking.comment}
 </ul>
 
+<form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
+    <button type="submit" name="bookingId" value="${booking.id}"> Send cancel message </button>
+</form>
+
+
 <form action="${pageContext.request.contextPath}/client_bookings" method="get">
     <button type="submit"><fmt:message key="page.seeBooking.button.back" /></button>
 </form>

@@ -49,6 +49,11 @@
     </form>
 </c:if>
 
+<form action="${pageContext.request.contextPath}/cancel_booking" method="get">
+    <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
+</form>
+
+
 <form action="${pageContext.request.contextPath}/bookings" method="get">
     <button type="submit"><fmt:message key="page.checkBooking.button.back" /></button>
 </form>

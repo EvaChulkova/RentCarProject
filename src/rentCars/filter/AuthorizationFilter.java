@@ -19,8 +19,8 @@ import static rentCars.util.UrlPath.*;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
     private static final Set<String> PUBLIC_PATH = Set.of(LOGIN, LOGOUT, REGISTRATION, LOCALE);
-    private static final Set<String> CLIENT_PATH = Set.of(IMAGES, ADD_CLIENT_INFO, CLIENT_BOOKINGS, CREATE_BOOKING, AVAILABLE_CARS, SEE_INFO_ABOUT_BOOKING, DOWNLOAD_CLIENT_REPORT);
-    private static final Set<String> ADMINISTRATOR_PATH = Set.of(IMAGES, CLIENTS, ADD_CAR, CARS, BOOKINGS, CHECK_BOOKING_EXISTING, DOWNLOAD_ADMIN_REPORT, CHECK_BOOKING);
+    private static final Set<String> CLIENT_PATH = Set.of(IMAGES, ADD_CLIENT_INFO, CLIENT_BOOKINGS, CREATE_BOOKING, AVAILABLE_CARS, SEE_INFO_ABOUT_BOOKING, DOWNLOAD_CLIENT_REPORT, SEND_CANCEL_MESSAGE);
+    private static final Set<String> ADMINISTRATOR_PATH = Set.of(IMAGES, CLIENTS, ADD_CAR, CARS, BOOKINGS, CHECK_BOOKING_EXISTING, DOWNLOAD_ADMIN_REPORT, CHECK_BOOKING, CANCEL_BOOKING);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
