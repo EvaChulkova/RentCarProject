@@ -13,25 +13,35 @@
     <title>Create booking</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<h1><fmt:message key="page.createBooking.createBooking" /></h1>
+
+<div>
+    <c:if test="${not empty sessionScope.user}">
+        <div id="logout">
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </c:if>
+</div>
+
+<h1>Create booking</h1>
 
 <form action="${pageContext.request.contextPath}/create_booking" method="post">
-    <label for="availableCarId"><fmt:message key="page.createBooking.car" />:
+    <label for="availableCarId"> Car:
         <select name="id" id="availableCarId">
             <c:forEach var="availableCars" items="${requestScope.availableCars}">
                 <option value="${availableCars.id}">${availableCars.id}</option>
             </c:forEach>
-        </select><br>
-    </label>
+        </select>
+    </label><br><br>
 
-    <label for="rentalStartId"> <fmt:message key="page.createBooking.rentalStartTime" />:
+    <label for="rentalStartId"> Start time of rent:
         <input type="datetime-local" name="rentalStart" id="rentalStartId">
-    </label><br>
+    </label><br><br>
 
-    <label for="rentalFinishId"> <fmt:message key="page.createBooking.rentalFinishTime" />:
+    <label for="rentalFinishId"> End time of rent:
         <input type="datetime-local" name="rentalFinish" id="rentalFinishId">
-    </label><br>
+    </label><br><br>
 
     <label>
         <ul>
@@ -41,18 +51,18 @@
                 Brand: ${availableCars.brand} <br>
                 Color: ${availableCars.color} <br>
                 Seat amount: ${availableCars.seatAmount} <br>
-                <b>Price per day: </b> ${availableCars.price} rubles <br>
+                <b>Price per day: </b> ${availableCars.price} rubles <br><br>
 
                 <img width="210" height="170" src="${pageContext.request.contextPath}/images${availableCars.image}" alt="No image"><br><br>
             </c:forEach>
         </ul>
     </label>
 
-    <button type="submit"><fmt:message key="page.createBooking.button.send" /></button>
+    <button type="submit">Create</button>
 </form>
 
 <form action="${pageContext.request.contextPath}/available_cars" method="get">
-    <button type="submit"><fmt:message key="page.createBooking.button.back" /></button>
+    <button type="submit">Back</button>
 </form>
 
 </body>

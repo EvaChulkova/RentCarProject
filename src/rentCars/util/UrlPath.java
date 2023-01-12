@@ -26,6 +26,7 @@ public class UrlPath {
     public static final String CANCEL_BOOKING = "/cancel_booking";
     public static final String SEND_CANCEL_MESSAGE = "/send_cancel_message";
     public static final String SEE_INFO_ABOUT_BOOKING = "/see_info_about_booking";
+    public static final String PERSONAL_CLIENT_INFO = "/personal_client_info";
     public static final String DOWNLOAD_ADMIN_REPORT = "/download_admin_report";
     public static final String DOWNLOAD_CLIENT_REPORT = "/download_client_report";
     public static final Path ADMIN_REPORT_FULL_PATH = Path.of("home","jane", "DMDev_HW", "jdbc-starter", "resources", "admin_report.txt");

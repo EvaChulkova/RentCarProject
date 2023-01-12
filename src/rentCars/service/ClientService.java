@@ -45,6 +45,10 @@ public class ClientService {
         return clientDao.findClientIdByUserId(userId);
     }
 
+    public Client findClientByUserId(Integer userId) {
+        return clientDao.findClientByUserId(userId);
+    }
+
     public static ClientService getInstance() {
         return INSTANCE;
     }

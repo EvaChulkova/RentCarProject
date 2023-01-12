@@ -13,8 +13,18 @@
     <title>My booking</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<h1><fmt:message key="page.seeBooking.seeInfo" /></h1>
+<%--<%@ include file="header.jsp" %>--%>
+<div>
+    <c:if test="${not empty sessionScope.user}">
+        <div id="logout">
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </c:if>
+</div>
+
+<h1>Information about booking</h1>
 <ul>
     <b>Booking identification number:</b>  ${requestScope.booking.id}<br><br>
 
@@ -34,26 +44,28 @@
     ${requestScope.booking.status}, ${requestScope.booking.comment}
 
     <c:if test="${requestScope.booking.status == 'CANCELLED'}">
+
         <div style="color: red">
-            <span><b><fmt:message key="page.checkBooking.cancelled" /></b></span>
+            <br>NOTE:<br>
+            <span><b>Canceled at the request of the client</b></span>
         </div>
     </c:if>
 
 </ul>
 
 
-
 <c:if test="${requestScope.booking.status != 'CANCELLED'}">
     <form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
-        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.seeBooking.sendCancelMessage" /> </button>
+        <button type="submit" name="bookingId" value="${booking.id}"> Submit an order cancellation request </button>
     </form>
 </c:if>
 
-
-
+<form action="${pageContext.request.contextPath}/available_cars" method="get">
+    <button type="submit">Go to main page</button>
+</form>
 
 <form action="${pageContext.request.contextPath}/client_bookings" method="get">
-    <button type="submit"><fmt:message key="page.seeBooking.button.back" /></button>
+    <button type="submit">Back</button>
 </form>
 
 </body>

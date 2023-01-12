@@ -53,6 +53,16 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             WHERE user_id = ?
             """;
 
+    private static final String FIND_CLIENT_BY_USER_ID = """
+            SELECT id,
+            user_id,
+            age,
+            licence_no,
+            validity
+            FROM client
+            WHERE user_id = ?
+            """;
+
 
     private ClientDao() {}
 
@@ -112,6 +122,24 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             throw new RentCarsDaoException(throwables);
         }
     }
+
+    public Client findClientByUserId(Integer userId) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             var preparedStatement = connection.prepareStatement(FIND_CLIENT_BY_USER_ID)) {
+            preparedStatement.setInt(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Client client = null;
+            if (resultSet.next()) {
+                client = buildClient(resultSet);
+            }
+            return client;
+
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
 
     @Override
     public List<Client> findAll() {

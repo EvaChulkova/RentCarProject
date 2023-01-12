@@ -24,9 +24,9 @@
         </form>
     </c:if>
     <c:if test="${sessionScope.user.role.name() == 'CLIENT'}">
-        <%--<form action="${pageContext.request.contextPath}/add_client_info" method="get">
-            <button type="submit">Add info about me</button>
-        </form>--%>
+        <form action="${pageContext.request.contextPath}/personal_client_info" method="get">
+            <button type="submit"><fmt:message key="page.footer.button.personalAcc" /></button>
+        </form>
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
             <button type="submit"><fmt:message key="page.footer.button.seeAllMyBookings" /></button>
         </form>

@@ -13,8 +13,18 @@
     <title>Check booking</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<h1><fmt:message key="page.checkBooking.checkNewBooking" /></h1>
+<%--<%@ include file="header.jsp" %>--%>
+<div>
+    <c:if test="${not empty sessionScope.user}">
+        <div id="logout">
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </c:if>
+</div>
+
+<h1>Check booking</h1>
 <ul>
     <b>Booking identification number: </b> ${requestScope.booking.id} \---\ <b>Client ID: </b> ${requestScope.booking.userId} \---\ <b>Car ID: </b> ${requestScope.booking.carId} <br><br>
 
@@ -37,33 +47,38 @@
     <img width="210" height="170" src="${pageContext.request.contextPath}/images${requestScope.carById.image}" alt="No image"><br><br>
 
     <c:if test = "${requestScope.booking.status != 'IN_PROGRESS'}">
-        <div style="color: red">
-            <span><b><fmt:message key="page.checkBooking.alreadyChecked" /></b></span>
+        <div style="color: green">
+            <br>CHECKING NOTE:<br>
+            <span><b>Checked</b></span>
         </div>
     </c:if>
 
     <c:if test="${requestScope.booking.status == 'CANCELLED'}">
         <div style="color: red">
-            <span><b><fmt:message key="page.checkBooking.cancelled" /></b></span>
+            <br>CANCELLING NOTE:<br>
+            <span><b>Cancelled</b></span>
         </div>
     </c:if>
 </ul>
 
 <c:if test = "${requestScope.booking.status == 'IN_PROGRESS'}">
     <form action="${pageContext.request.contextPath}/check_booking" method="get">
-        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.checkBooking" /></button>
+        <button type="submit" name="bookingId" value="${booking.id}"> Check booking </button>
     </form>
 </c:if>
 
 <c:if test="${requestScope.booking.status != 'COMPLETED'} || test=${requestScope.booking.status != 'CANCELLED'}">
     <form action="${pageContext.request.contextPath}/cancel_booking" method="get">
-        <button type="submit" name="bookingId" value="${booking.id}"> <fmt:message key="page.checkBooking.button.cancelBooking" /> </button>
+        <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
     </form>
 </c:if>
 
-
 <form action="${pageContext.request.contextPath}/bookings" method="get">
-    <button type="submit"><fmt:message key="page.checkBooking.button.back" /></button>
+    <button type="submit">Back</button>
+</form>
+
+<form action="${pageContext.request.contextPath}/cars" method="get">
+    <button type="submit">Go to main page</button>
 </form>
 
 </body>
