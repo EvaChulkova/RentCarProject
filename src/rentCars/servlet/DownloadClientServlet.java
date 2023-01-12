@@ -33,9 +33,5 @@ public class DownloadClientServlet extends HttpServlet {
             writer.write(Files.readString(CLIENT_REPORT_FULL_PATH));
         }
 
-        /*try (var outputStream = resp.getOutputStream();
-             var stream = DownloadAdminServlet.class.getClassLoader().getResourceAsStream("admin_report.txt")) {
-            outputStream.write(stream.readAllBytes());
-        }*/
     }
 }

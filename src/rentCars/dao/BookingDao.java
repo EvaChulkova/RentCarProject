@@ -72,6 +72,28 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
     private BookingDao() {}
 
     @Override
+    public Booking add(Booking booking) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_BOOKING_SQL, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, booking.getUserId());
+            preparedStatement.setInt(2, booking.getCarId());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(booking.getRentalStart()));
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(booking.getRentalFinish()));
+            preparedStatement.setString(5, booking.getStatus().name());
+            preparedStatement.setString(6, booking.getComment());
+
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                booking.setId(generatedKeys.getLong("id"));
+            }
+            return booking;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    @Override
     public void update(Booking booking) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BOOKING_SQL)) {
@@ -89,6 +111,31 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
+    @Override
+    public boolean delete(Long id) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOKING_SQL)) {
+            preparedStatement.setLong(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    @Override
+    public List<Booking> findAll() {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BOOKINGS_SQL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Booking> bookings = new ArrayList<>();
+            while (resultSet.next()) {
+                bookings.add(buildBooking(resultSet));
+            }
+            return bookings;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
 
     @Override
     public Optional<Booking> findById(Long id) {
@@ -107,6 +154,7 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
+    /**Show info about car - SeeBookingServlet, CheckBookingExistingServlet - checkBooking.jsp, seeBooking.jsp*/
     public Integer findCarIdByBookingId (Long id) {
         try (Connection connection = RentCarsConnectionManager.open();
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_CAR_ID_BY_BOOKING_ID_SQL)) {
@@ -124,7 +172,7 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
-
+    /**Show info about user - CheckBookingExistingServlet - checkBooking.jsp*/
     public Integer findUserIdByBookingId (Long id) {
         try (Connection connection = RentCarsConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ID_BY_BOOKING_ID_SQL)) {
@@ -142,22 +190,6 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
         }
     }
 
-
-    @Override
-    public List<Booking> findAll() {
-        try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BOOKINGS_SQL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Booking> bookings = new ArrayList<>();
-            while (resultSet.next()) {
-                bookings.add(buildBooking(resultSet));
-            }
-            return bookings;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
-
     private Booking buildBooking(ResultSet resultSet) throws SQLException {
         return new Booking(
                 resultSet.getLong("id"),
@@ -168,39 +200,6 @@ public class BookingDao implements DaoRentCar<Long, Booking> {
                 BookingStatusEnum.valueOf(resultSet.getObject("status", String.class)),
                 resultSet.getString("comment")
         );
-    }
-
-    @Override
-    public Booking add(Booking booking) {
-        try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(ADD_BOOKING_SQL, Statement.RETURN_GENERATED_KEYS)) {
-        preparedStatement.setInt(1, booking.getUserId());
-        preparedStatement.setInt(2, booking.getCarId());
-        preparedStatement.setTimestamp(3, Timestamp.valueOf(booking.getRentalStart()));
-        preparedStatement.setTimestamp(4, Timestamp.valueOf(booking.getRentalFinish()));
-        preparedStatement.setString(5, booking.getStatus().name());
-        preparedStatement.setString(6, booking.getComment());
-
-        preparedStatement.executeUpdate();
-        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-        while (generatedKeys.next()) {
-            booking.setId(generatedKeys.getLong("id"));
-        }
-        return booking;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        try (Connection connection = RentCarsConnectionManager.open();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOKING_SQL)) {
-        preparedStatement.setLong(1, id);
-        return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
     }
 
     public static BookingDao getInstance() {

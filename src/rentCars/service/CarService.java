@@ -8,7 +8,6 @@ import rentCars.entity.Car;
 import rentCars.mapper.CreateCarMapper;
 
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -17,6 +16,7 @@ public class CarService {
     private final CarDao carDao = CarDao.getInstance();
     private final CreateCarMapper createCarMapper = CreateCarMapper.getInstance();
     private final ImageService imageService = ImageService.getInstance();
+
     private CarService(){}
 
     public List<CarDto> findAll() {
@@ -33,7 +33,6 @@ public class CarService {
                 )
                 .collect(toList());
     }
-
 
 
     public List<CarDto> findAvailableCars() {
@@ -64,9 +63,6 @@ public class CarService {
                 .collect(toList());
     }
 
-    public Optional<Car> findCarById (Integer carId) {
-        return carDao.findById(carId);
-    }
 
     public Car findNotOptionalCarById (Integer carId) {
         return carDao.findNotOptionalCar(carId);

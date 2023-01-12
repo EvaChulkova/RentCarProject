@@ -15,6 +15,7 @@ import rentCars.util.JSPHelper;
 import java.io.IOException;
 
 import static rentCars.util.UrlPath.ADD_CAR;
+import static rentCars.util.UrlPath.CARS;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024)
 @WebServlet(ADD_CAR)
@@ -43,6 +44,6 @@ public class CreateCarServlet extends HttpServlet {
                 .build();
 
         carService.create(createCarDto);
-        resp.sendRedirect("/cars");
+        resp.sendRedirect(CARS);
     }
 }

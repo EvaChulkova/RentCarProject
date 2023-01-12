@@ -44,9 +44,11 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             validity
             FROM client
             """;
+
     public static final String FIND_CLIENT_BY_ID_SQL = FIND_ALL_CLIENTS_SQL + """
             WHERE id = ?
             """;
+
     private static final String FIND_CLIENT_ID_BY_USER_ID = """
             SELECT id
             FROM client 
@@ -63,8 +65,27 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
             WHERE user_id = ?
             """;
 
-
     private ClientDao() {}
+
+    @Override
+    public Client add(Client client) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CLIENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, client.getUserId());
+            preparedStatement.setInt(2, client.getAge());
+            preparedStatement.setInt(3, client.getLicenceNo());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(client.getValidity().atStartOfDay()));
+
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                client.setId(generatedKeys.getInt("id"));
+            }
+            return client;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
 
     @Override
     public void update(Client client) {
@@ -77,6 +98,32 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
         preparedStatement.setInt(5, client.getId());
 
         preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_SQL)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throw new RentCarsDaoException(throwables);
+        }
+    }
+
+    @Override
+    public List<Client> findAll() {
+        try (Connection connection = RentCarsConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_CLIENTS_SQL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Client> clients = new ArrayList<>();
+            while (resultSet.next()) {
+                clients.add(buildClient(resultSet));
+            }
+            return clients;
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);
         }
@@ -106,23 +153,7 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
         }
     }
 
-    public Optional<Integer> findClientIdByUserId(Integer userId) {
-        try (Connection connection = RentCarsConnectionManager.open();
-        var preparedStatement = connection.prepareStatement(FIND_CLIENT_ID_BY_USER_ID)) {
-            preparedStatement.setInt(1, userId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Integer id = null;
-            if (resultSet.next()) {
-                id = resultSet.getInt("id");
-            }
-            return Optional.ofNullable(id);
-
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
-
+    /**Personal information - PersonalClientInformationServlet - personalClientInfo.jsp*/
     public Client findClientByUserId(Integer userId) {
         try (Connection connection = RentCarsConnectionManager.open();
              var preparedStatement = connection.prepareStatement(FIND_CLIENT_BY_USER_ID)) {
@@ -140,21 +171,24 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
         }
     }
 
-
-    @Override
-    public List<Client> findAll() {
+    /**LoginServlet - login.jsp --- CheckBookingServlet - checkServlet*/
+    public Optional<Integer> findClientIdByUserId(Integer userId) {
         try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_CLIENTS_SQL)) {
+        var preparedStatement = connection.prepareStatement(FIND_CLIENT_ID_BY_USER_ID)) {
+            preparedStatement.setInt(1, userId);
+
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Client> clients = new ArrayList<>();
-            while (resultSet.next()) {
-                clients.add(buildClient(resultSet));
+            Integer id = null;
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
             }
-            return clients;
+            return Optional.ofNullable(id);
+
         } catch (SQLException throwables) {
             throw new RentCarsDaoException(throwables);
         }
     }
+
 
     private Client buildClient(ResultSet resultSet) throws SQLException {
         return Client.builder()
@@ -166,36 +200,6 @@ public class ClientDao implements DaoRentCar<Integer, Client> {
                 .build();
     }
 
-    @Override
-    public Client add(Client client) {
-        try (Connection connection = RentCarsConnectionManager.open();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CLIENT_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setInt(1, client.getUserId());
-            preparedStatement.setInt(2, client.getAge());
-            preparedStatement.setInt(3, client.getLicenceNo());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(client.getValidity().atStartOfDay()));
-
-            preparedStatement.executeUpdate();
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            while (generatedKeys.next()) {
-                client.setId(generatedKeys.getInt("id"));
-            }
-            return client;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        try (Connection connection = RentCarsConnectionManager.open();
-        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CLIENT_SQL)) {
-        preparedStatement.setInt(1, id);
-        return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException throwables) {
-            throw new RentCarsDaoException(throwables);
-        }
-    }
 
     public static ClientDao getInstance() {
         return INSTANCE;

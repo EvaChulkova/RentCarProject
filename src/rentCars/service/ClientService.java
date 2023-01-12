@@ -32,10 +32,6 @@ public class ClientService {
                 .collect(toList());
     }
 
-    public Optional<Client> findClientByID(Integer clientId) {
-        return clientDao.findById(clientId);
-    }
-
     public void create(CreateClientDto createClientDto) {
         var client = createClientMapper.mapFrom(createClientDto);
         clientDao.add(client);

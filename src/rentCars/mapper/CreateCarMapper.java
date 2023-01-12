@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class CreateCarMapper implements Mapper<CreateCarDto, Car>{
-    private static final String ENTITY_NAME = "car_";
+    private static final String ENTITY_NAME = "/car_";
     private static final CreateCarMapper INSTANCE = new CreateCarMapper();
 
     @Override

@@ -29,6 +29,7 @@ public class BookingService {
     private final CreateBookingMapper createBookingMapper = CreateBookingMapper.getInstance();
     private final CarDao carDao = CarDao.getInstance();
     private final ClientDao clientDao = ClientDao.getInstance();
+
     private BookingService(){}
 
     public List<BookingDto> findAll() {
@@ -46,6 +47,7 @@ public class BookingService {
                 .collect(toList());
     }
 
+
     public Integer findCarIdByBookingId (Integer bookingId) {
         return bookingDao.findCarIdByBookingId(Long.valueOf(bookingId));
     }
@@ -54,6 +56,7 @@ public class BookingService {
         return bookingDao.findUserIdByBookingId(Long.valueOf(bookingId));
     }
 
+
     public List<BookingDto> findBookingsByUserId (Integer userId) {
         var bookingDtos = findAll();
         return bookingDtos.stream()
@@ -61,10 +64,12 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
+
     public void create(CreateBookingDto createBookingDto) {
         Booking booking = createBookingMapper.mapFrom(createBookingDto);
         bookingDao.add(booking);
     }
+
 
     public void sendCancelBookingMessage(BookingDto bookingDto) {
         Long bookingDtoId = bookingDto.getId();
@@ -84,6 +89,7 @@ public class BookingService {
             bookingDao.update(bookingToUpdate);
         }
     }
+
 
     public void cancelBooking(BookingDto bookingDto) {
         Long cancelledBookingId = bookingDto.getId();

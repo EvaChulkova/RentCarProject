@@ -24,10 +24,6 @@ public class UserService {
                 .map(userMapper::mapFrom);
     }
 
-    public Optional<User> findUserById(Integer id) {
-        return userDao.findById(id);
-    }
-
     public User findNotOptionalUserById(Integer id) {
         return userDao.findNotOptionalUserById(id);
     }
