@@ -82,7 +82,7 @@ public class BookingService {
                     .carId(bookingDto.getCarId())
                     .rentalStart(bookingDto.getRentalStart())
                     .rentalFinish(bookingDto.getRentalFinish())
-                    .status(bookingDto.getStatus())
+                    .status(BookingStatusEnum.FOR_CANCELLING)
                     .comment(cancelBookingMessage)
                     .build();
             bookingDao.update(bookingToUpdate);

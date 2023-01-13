@@ -46,7 +46,7 @@
 
     <img width="210" height="170" src="${pageContext.request.contextPath}/images${requestScope.carById.image}" alt="No image"><br><br>
 
-    <c:if test = "${requestScope.booking.status != 'IN_PROGRESS'}">
+    <c:if test = "${requestScope.booking.status == 'APPROVED'}">
         <div style="color: green">
             <br>CHECKING NOTE:<br>
             <span><b>Checked</b></span>
@@ -74,7 +74,7 @@
     </form>
 </c:if>
 
-<c:if test="${requestScope.booking.comment == 'Please, cancel booking.'}">
+<c:if test="${requestScope.booking.status == 'FOR_CANCELLING'}">
     <form action="${pageContext.request.contextPath}/cancel_booking" method="get">
         <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
     </form>
