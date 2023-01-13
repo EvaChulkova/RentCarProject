@@ -1,4 +1,4 @@
-# RentCarProject
+# Car booking service
 Project:
 Car booking service
 
