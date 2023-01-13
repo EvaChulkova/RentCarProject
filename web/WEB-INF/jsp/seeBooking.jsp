@@ -51,6 +51,13 @@
         </div>
     </c:if>
 
+    <c:if test="${requestScope.booking.status == 'COMPLETED'}">
+        <div style="color: blue">
+            <br>NOTE:<br>
+            <span><b>CBooking completed</b></span>
+        </div>
+    </c:if>
+
 </ul>
 
 

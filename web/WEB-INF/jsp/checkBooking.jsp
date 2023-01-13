@@ -59,6 +59,13 @@
             <span><b>Cancelled</b></span>
         </div>
     </c:if>
+
+    <c:if test="${requestScope.booking.status == 'COMPLETED'}">
+        <div style="color: blue">
+            <br>NOTE:<br>
+            <span><b>Booking completed</b></span>
+        </div>
+    </c:if>
 </ul>
 
 <c:if test = "${requestScope.booking.status == 'IN_PROGRESS'}">
@@ -71,6 +78,12 @@
     <form action="${pageContext.request.contextPath}/cancel_booking" method="get">
         <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
     </form>
+</c:if>
+
+<c:if test = "${requestScope.booking.status == 'APPROVED'}">
+<form action="${pageContext.request.contextPath}/complete_booking" method="get">
+    <button type="submit" name="bookingId" value="${booking.id}"> Complete booking </button>
+</form>
 </c:if>
 
 <form action="${pageContext.request.contextPath}/bookings" method="get">

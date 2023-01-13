@@ -12,7 +12,6 @@ public class UrlPath {
     public static final String LOCALE = "/locale";
     public static final String COOKIES = "/cookies";
     public static final String LOGOUT = "/logout";
-    public static final String SESSIONS = "/sessions";
     public static final String BOOKINGS = "/bookings";
     public static final String CARS = "/cars";
     public static final String CLIENTS = "/clients";
@@ -24,6 +23,7 @@ public class UrlPath {
     public static final String AVAILABLE_CARS = "/available_cars";
     public static final String CHECK_BOOKING = "/check_booking";
     public static final String CANCEL_BOOKING = "/cancel_booking";
+    public static final String COMPLETE_BOOKING = "/complete_booking";
     public static final String SEND_CANCEL_MESSAGE = "/send_cancel_message";
     public static final String SEE_INFO_ABOUT_BOOKING = "/see_info_about_booking";
     public static final String PERSONAL_CLIENT_INFO = "/personal_client_info";

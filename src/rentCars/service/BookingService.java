@@ -72,7 +72,6 @@ public class BookingService {
 
 
     public void sendCancelBookingMessage(BookingDto bookingDto) {
-        Long bookingDtoId = bookingDto.getId();
         String cancelBookingMessage = "Please, cancel booking.";
 
         Optional<Booking> booking = bookingDao.findById(bookingDto.getId());
@@ -85,6 +84,35 @@ public class BookingService {
                     .rentalFinish(bookingDto.getRentalFinish())
                     .status(bookingDto.getStatus())
                     .comment(cancelBookingMessage)
+                    .build();
+            bookingDao.update(bookingToUpdate);
+        }
+    }
+
+    public void completeBooking(BookingDto bookingDto) {
+        Long completedBookingId = bookingDto.getId();
+        Integer completedCarId = bookingDto.getCarId();
+        String completedMessage = "Your booking is completed. Nice to meet you again!";
+
+        Optional<Car> car = carDao.findById(completedCarId);
+        if (car.isPresent()) {
+            Car carToUpdate = Car.builder()
+                    .id(bookingDto.getCarId())
+                    .status(CarStatusEnum.AVAILABLE)
+                    .build();
+            carDao.updateCarFromBooking(carToUpdate);
+        }
+
+        Optional<Booking> booking = bookingDao.findById(completedBookingId);
+        if (booking.isPresent()) {
+            Booking bookingToUpdate = Booking.builder()
+                    .id(bookingDto.getId())
+                    .userId(bookingDto.getUserId())
+                    .carId(bookingDto.getCarId())
+                    .rentalStart(bookingDto.getRentalStart())
+                    .rentalFinish(bookingDto.getRentalFinish())
+                    .status(BookingStatusEnum.COMPLETED)
+                    .comment(completedMessage)
                     .build();
             bookingDao.update(bookingToUpdate);
         }
