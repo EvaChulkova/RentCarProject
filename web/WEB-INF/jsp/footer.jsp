@@ -30,9 +30,6 @@
         <form action="${pageContext.request.contextPath}/client_bookings" method="get">
             <button type="submit"><fmt:message key="page.footer.button.seeAllMyBookings" /></button>
         </form>
-        <form action="${pageContext.request.contextPath}/download_client_report" method="get">
-            <button type="submit"><fmt:message key="page.footer.button.downloadClientReport" /></button>
-        </form>
     </c:if>
 
 </div>

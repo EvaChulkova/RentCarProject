@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Personal account</title>
@@ -31,6 +32,10 @@
     <b>Driving licence No: </b>${requestScope.personal_client_information.licenceNo} <br>
     <b>Driving licence validity: </b>${requestScope.personal_client_information.validity} <br>
 </ul>
+
+<form action="${pageContext.request.contextPath}/download_client_report" method="get">
+    <button type="submit">Download report about my bookings</button>
+</form>
 
 <form action="${pageContext.request.contextPath}/available_cars" method="get">
     <button type="submit"> Go to main page </button>
