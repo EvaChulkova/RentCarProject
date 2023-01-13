@@ -60,6 +60,13 @@
         </div>
     </c:if>
 
+    <c:if test="${requestScope.booking.status == 'PAYED'}">
+        <div style="color: orangered">
+            <br>NOTE:<br>
+            <span><b>Booking payed</b></span>
+        </div>
+    </c:if>
+
     <c:if test="${requestScope.booking.status == 'COMPLETED'}">
         <div style="color: blue">
             <br>NOTE:<br>
@@ -80,10 +87,10 @@
     </form>
 </c:if>
 
-<c:if test = "${requestScope.booking.status == 'APPROVED'}">
-<form action="${pageContext.request.contextPath}/complete_booking" method="get">
-    <button type="submit" name="bookingId" value="${booking.id}"> Complete booking </button>
-</form>
+<c:if test = "${requestScope.booking.status == 'PAYED'}">
+    <form action="${pageContext.request.contextPath}/complete_booking" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> Complete booking </button>
+    </form>
 </c:if>
 
 <form action="${pageContext.request.contextPath}/bookings" method="get">

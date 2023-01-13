@@ -70,6 +70,23 @@ public class BookingService {
         bookingDao.add(booking);
     }
 
+    public void payBooking(BookingDto bookingDto) {
+
+        Optional<Booking> booking = bookingDao.findById(bookingDto.getId());
+        if (booking.isPresent()) {
+            Booking bookingToUpdate = Booking.builder()
+                    .id(bookingDto.getId())
+                    .userId(bookingDto.getUserId())
+                    .carId(bookingDto.getCarId())
+                    .rentalStart(bookingDto.getRentalStart())
+                    .rentalFinish(bookingDto.getRentalFinish())
+                    .status(BookingStatusEnum.PAYED)
+                    .comment(bookingDto.getComment())
+                    .build();
+            bookingDao.update(bookingToUpdate);
+        }
+    }
+
 
     public void sendCancelBookingMessage(BookingDto bookingDto) {
         String cancelBookingMessage = "Please, cancel booking.";

@@ -54,16 +54,34 @@
     <c:if test="${requestScope.booking.status == 'COMPLETED'}">
         <div style="color: blue">
             <br>NOTE:<br>
-            <span><b>CBooking completed</b></span>
+            <span><b>Booking completed</b></span>
         </div>
     </c:if>
 
 </ul>
 
 
-<c:if test="${requestScope.booking.status != 'CANCELLED'}">
+<c:if test="${requestScope.booking.status == 'IN_PROGRESS'}">
     <form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
         <button type="submit" name="bookingId" value="${booking.id}"> Submit an order cancellation request </button>
+    </form>
+</c:if>
+
+<c:if test="${requestScope.booking.status == 'APPROVED'}">
+    <form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> Submit an order cancellation request </button>
+    </form>
+</c:if>
+
+<c:if test="${requestScope.booking.status == 'PAYED'}">
+    <form action="${pageContext.request.contextPath}/send_cancel_message" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> Submit an order cancellation request </button>
+    </form>
+</c:if>
+
+<c:if test="${requestScope.booking.status == 'APPROVED'}">
+    <form action="${pageContext.request.contextPath}/pay_booking" method="get">
+        <button type="submit" name="bookingId" value="${booking.id}"> Pay booking </button>
     </form>
 </c:if>
 
