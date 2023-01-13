@@ -2,7 +2,7 @@
 Project:
 Car booking service
 
-Diagram:
+
 ![image](https://user-images.githubusercontent.com/89831421/212417444-585844b5-90db-45ed-99f9-7f88971f46f9.png)
 
 
