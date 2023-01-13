@@ -73,7 +73,7 @@ public class BookingService {
 
     public void sendCancelBookingMessage(BookingDto bookingDto) {
         Long bookingDtoId = bookingDto.getId();
-        String cancelBookingMessage = "Please, cancel booking. Booking ID: " + bookingDtoId;
+        String cancelBookingMessage = "Please, cancel booking.";
 
         Optional<Booking> booking = bookingDao.findById(bookingDto.getId());
         if (booking.isPresent()) {

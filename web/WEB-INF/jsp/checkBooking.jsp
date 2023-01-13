@@ -67,7 +67,7 @@
     </form>
 </c:if>
 
-<c:if test="${requestScope.booking.status != 'COMPLETED'} || test=${requestScope.booking.status != 'CANCELLED'}">
+<c:if test="${requestScope.booking.comment == 'Please, cancel booking.'}">
     <form action="${pageContext.request.contextPath}/cancel_booking" method="get">
         <button type="submit" name="bookingId" value="${booking.id}"> Cancel booking </button>
     </form>
