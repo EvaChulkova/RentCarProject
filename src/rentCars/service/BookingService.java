@@ -151,8 +151,7 @@ public class BookingService {
 
     public void checkBooking(BookingDto bookingDto) {
         Integer userId = bookingDto.getUserId();
-        Optional<Integer> clientIdByUserId = clientDao.findClientIdByUserId(userId);
-        Optional<Client> client = clientDao.findById(clientIdByUserId.orElseThrow());
+        Optional<Client> client = clientDao.findById(clientDao.findClientIdByUserId(userId).orElseThrow());
         Integer clientAge = client.orElseThrow().getAge();
         LocalDate clientLicenceValidity = client.orElseThrow().getValidity();
         LocalDateTime rentalStart = bookingDto.getRentalStart();
