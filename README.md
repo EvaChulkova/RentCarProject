@@ -3,7 +3,7 @@ Project:
 Car booking service
 
 
-![image](https://user-images.githubusercontent.com/89831421/212417444-585844b5-90db-45ed-99f9-7f88971f46f9.png)
+![image](https://user-images.githubusercontent.com/89831421/212463887-2c7d522d-4336-4fe5-9745-89ec09d17eb4.png)
 
 
 Implemented:
